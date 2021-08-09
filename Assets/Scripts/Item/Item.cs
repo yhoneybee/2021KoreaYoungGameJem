@@ -4,12 +4,17 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public abstract class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public abstract class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     /// <summary>
     /// 마우스가 위에 있는 Item
     /// </summary>
     public static Item MouseOverItem { get; set; } = null;
+
+    /// <summary>
+    /// 드레그 중인 Item
+    /// </summary>
+    public static Item DraggingItem { get; set; } = null;
 
     /// <summary>
     /// 아이템의 아이콘
@@ -34,7 +39,7 @@ public abstract class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public bool IgnoreCountAttribute { get; set; }
 
     /// <summary>
-    /// 아이템을 사용함 ( 무기 -> 공격, 건물 -> 건설, 소모품 -> 사용 )
+    /// 아이템을 사용함 ( 무기 -> 장착, 건물 -> 건설, 소모품 -> 사용 )
     /// </summary>
     public abstract void Use();
 
@@ -54,5 +59,10 @@ public abstract class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         MouseOverItem = null;
         // 아이템 정보창 지우기
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Use();
     }
 }

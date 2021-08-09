@@ -71,7 +71,7 @@ public class PlayerInput
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            // 아이템 창 열기
+            Player.Backpack.OpenAndClose();
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
