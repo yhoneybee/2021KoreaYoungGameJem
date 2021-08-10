@@ -5,11 +5,22 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; } = null;
+    /// <summary>
+    /// Resource Load 한 Items
+    /// </summary>
     public List<Item> Items { get; set; } = new List<Item>();
+
+    public List<Item> Ui_Items { get; set; } = new List<Item>();
 
     public GameObject ItemInfoWindow;
 
-    public bool MouseOver { get; set; }
+    bool mouse_over;
+
+    public bool MouseOver
+    {
+        get { return mouse_over; }
+        set { mouse_over = value; ItemInfoWindow.SetActive(mouse_over); }
+    }
 
     /// <summary>
     /// Key : 조합해서 완성하는 아이템
@@ -28,6 +39,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Items.AddRange(Resources.LoadAll<Item>("Item/"));
+        Ui_Items.AddRange(Player.Instance.Backpack.Content.GetComponentsInChildren<Item>());
         Player.Instance.Backpack.SetUi(true);
     }
 

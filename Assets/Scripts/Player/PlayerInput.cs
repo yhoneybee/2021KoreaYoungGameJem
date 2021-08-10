@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInput
 {
@@ -12,9 +13,39 @@ public class PlayerInput
     public static Vector2 MousePos { get; private set; }
     Quaternion Quaternion { get; set; }
 
+    public static GameObject Building { get; set; }
+
     float Angle { get; set; }
     float Speed { get; set; } = 3f;
-    bool BuildMode { get; set; } = false;
+
+    bool build_mode = false;
+    bool BuildMode
+    {
+        get { return build_mode; }
+        set
+        {
+            build_mode = value;
+            if (build_mode)
+            {
+                Item select = Player.Hotbar[ItemContainer.SelectedIndex].Item;
+
+                if (select && select.Count > 0 && select.ItemType == ItemType.HOUSE)
+                {
+                    Building = new GameObject(select.Name);
+                    Building.AddComponent<SpriteRenderer>().sprite = select.Icon;
+                    Building.GetComponent<SpriteRenderer>().material.color = new Color(0.3f, 1, 0.3f, 1);
+                    Building.AddComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    Building.AddComponent<BoxCollider2D>().size = Vector2.one;
+                }
+            }
+            else
+            {
+                if (Building)
+                    Object.Destroy(Building);
+            }
+        }
+    }
+
     void SetAngle()
     {
         MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -25,30 +56,95 @@ public class PlayerInput
         Quaternion = Quaternion.AngleAxis(Angle - 90, Vector3.forward);
     }
 
+    void TempBuild()
+    {
+        if (BuildMode && Building)
+        {
+            Item select = Player.Hotbar[ItemContainer.SelectedIndex].Item;
+            if (select && select.ItemType == ItemType.HOUSE)
+            {
+                Building.transform.position = MousePos;
+            }
+        }
+    }
+
     void MouseClick()// Ray를 쏠 예정
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (BuildMode)
+            RaycastHit2D hit = Physics2D.Raycast(MousePos, Vector3.forward, 50000);
+
+            if (hit)
             {
-                // 분해
-            }
-            else
-            {
-                // 던지기
+                if (BuildMode)
+                {
+                    // 분해
+                }
+                else
+                {
+                    // 사용
+                }
             }
         }
+
         if (Input.GetMouseButtonDown(1))
         {
-            if (BuildMode)
+            RaycastHit2D hit = Physics2D.Raycast(MousePos, Vector3.forward, 50000);
+
+            if (hit)
             {
-                // 짓기
-            }
-            else
-            {
-                // 상호작용키
+                if (BuildMode && Building)
+                {
+                    Item item = Player.Hotbar[ItemContainer.SelectedIndex].Item;
+                    // 짓기
+                    if (item.ItemType == ItemType.HOUSE)
+                    {
+                        GameManager.Instance.Ui_Items.Find(o => o.Name == item.Name).Use();
+                        BuildMode = false;
+                    }
+                }
+                else
+                {
+                    // 상호작용키
+                    Item item = hit.transform.gameObject.GetComponent<Item>();
+
+                    if (item)
+                    {
+                        Item dragged = GameManager.Instance.Ui_Items.Find(o => o.Name == item.Name);
+
+                        if (dragged)
+                        {
+                            Player.Backpack.AddItem(dragged, item.Count);
+
+                            Object.Destroy(hit.transform.gameObject);
+                            GameManager.Instance.MouseOver = false;
+                        }
+                    }
+                }
             }
         }
+    }
+
+    void MouseWheel()
+    {
+        float wheel = Input.GetAxis("Mouse ScrollWheel");
+
+        if (wheel > 0)
+        {
+            // up
+            BuildMode = false;
+            ItemContainer.SelectedIndex++;
+            ItemContainer.SelectedIndex %= 9;
+        }
+        else if (wheel < 0)
+        {
+            // down
+            BuildMode = false;
+            ItemContainer.SelectedIndex--;
+            if (ItemContainer.SelectedIndex < 0) ItemContainer.SelectedIndex = 8;
+        }
+
+        Player.Instance.HotbarFrame.transform.localPosition = new Vector3(Player.Instance.Hotbar[ItemContainer.SelectedIndex].transform.localPosition.x, -465, 0);
     }
 
     void Move()
@@ -71,6 +167,7 @@ public class PlayerInput
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            BuildMode = false;
             Player.Backpack.OpenAndClose();
             GameManager.Instance.ItemInfoWindow.SetActive(false);
         }
@@ -90,8 +187,12 @@ public class PlayerInput
 
         MouseClick();
 
+        MouseWheel();
+
         Move();
 
         KeyBoard();
+
+        TempBuild();
     }
 }

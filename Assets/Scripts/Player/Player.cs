@@ -7,12 +7,17 @@ public class Player : MonoBehaviour
     public static Player Instance { get; private set; } = null;
     public PlayerInput PlayerInput { get; set; }
 
-    public Backpack Backpack;
+    /// <summary>
+    /// 밑에 있는 칸 9개
+    /// </summary>
+    public ItemContainer[] Hotbar = new ItemContainer[9];
 
     /// <summary>
-    /// 35.9 ℃ ~ 37.6 ℃가 정상적인 체온 범위 이다
+    /// Hotbar Select Frame
     /// </summary>
-    public float Temperature { get; set; } = 36.5f;
+    public GameObject HotbarFrame;
+
+    public Backpack Backpack;
 
     private void Awake()
     {

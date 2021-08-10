@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3948124850655748109}
   - component: {fileID: 3948124850655748098}
   m_Layer: 0
-  m_Name: Tent
+  m_Name: 22_Tent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,4 +48,5 @@ MonoBehaviour:
   Name: "\uD150\uD2B8"
   Info: "\uC544\uB291\uD558\uB2E4."
   count: 1
-  IgnoreCountAttribute: 0
+  IgnoreCountAttribute: 1
+  Size: {x: 3, y: 3}

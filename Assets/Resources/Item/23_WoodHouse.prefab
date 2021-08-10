@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1603036264147185828}
   - component: {fileID: 1603036264147185831}
   m_Layer: 0
-  m_Name: WoodHouse
+  m_Name: 23_WoodHouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,4 +48,5 @@ MonoBehaviour:
   Name: "\uB098\uBB34\uC9D1"
   Info: "\uC0B4\uB9DB\uB09C\uB2E4."
   count: 1
-  IgnoreCountAttribute: 0
+  IgnoreCountAttribute: 1
+  Size: {x: 3, y: 5}

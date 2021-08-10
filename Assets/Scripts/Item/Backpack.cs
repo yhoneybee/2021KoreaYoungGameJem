@@ -41,29 +41,38 @@ public class Backpack : MonoBehaviour
     /// </summary>
     /// <param name="item">버릴려는 아이템</param>
     /// <param name="Count">버릴 개수</param>
-    public void DiscardItem(Item item, int Count = 1)
+    public void DiscardItem(Item item, bool isDrop = true, int Count = 1)
     {
         if (item)
         {
-            item.Count -= Count;
-            if (item.Count <= 0)
+            if (item.IgnoreCountAttribute)
             {
                 item.Count = 0;
                 SetUi();
             }
-            DropItem(item).Count = Count;
+            else
+            {
+                item.Count -= Count;
+                if (item.Count <= 0)
+                {
+                    item.Count = 0;
+                    SetUi();
+                }
+            }
+            if (isDrop)
+                DropItem(item).Count = Count;
         }
     }
 
     Item DropItem(Item item)
     {
         GameObject go = Instantiate(item.gameObject, PlayerInput.MousePos, Quaternion.identity);
-        go.transform.SetParent(GameObject.Find("Canvas").transform);
-        go.GetComponent<RectTransform>().sizeDelta = Vector2.one * 100;
         go.transform.localScale = Vector3.one;
         go.name = item.Name;
         go.AddComponent<ItemRotate>();
-        go.GetComponent<Image>().raycastTarget = true;
+        go.AddComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
+        go.AddComponent<SpriteRenderer>().sprite = item.Icon;
+        go.AddComponent<BoxCollider2D>().size = Vector2.one;
 
         return go.GetComponent<Item>();
     }
@@ -74,18 +83,17 @@ public class Backpack : MonoBehaviour
 
         for (int i = 0; i < GameManager.Instance.Items.Count; i++)
         {
-            item = Content.transform.GetChild(i).GetComponent<Item>();
+            item = GameManager.Instance.Ui_Items[i];
             gm_item = GameManager.Instance.Items[i];
 
             if (isFrist)
-            {
                 item.Count = gm_item.Count;
-                item.IgnoreCountAttribute = gm_item.IgnoreCountAttribute;
-            }
+
             item.ItemType = gm_item.ItemType;
             item.Icon = gm_item.Icon;
             item.Name = gm_item.Name;
             item.Info = gm_item.Info;
+            item.IgnoreCountAttribute = gm_item.IgnoreCountAttribute;
         }
     }
 }

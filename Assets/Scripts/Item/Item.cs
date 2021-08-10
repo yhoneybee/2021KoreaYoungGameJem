@@ -20,7 +20,7 @@ public enum ItemType
 }
 
 [System.Serializable]
-public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     public ItemType ItemType;
 
@@ -81,6 +81,7 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void Use()
     {
+        Player.Instance.Backpack.DiscardItem(this, false);
         switch (ItemType)
         {
             //재료 사용
@@ -98,7 +99,12 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
             //정수기
             case ItemType.WATER_PURIFIER: break;
             //집
-            case ItemType.HOUSE: break;
+            case ItemType.HOUSE:
+                {
+                    Instantiate(PlayerInput.Building, PlayerInput.MousePos, Quaternion.identity);
+                    // House 클래스 추가
+                }
+                break;
             //틀
             case ItemType.FRAME: break;
             //옷
@@ -108,8 +114,6 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     private void Update()
     {
-        if (IgnoreCountAttribute)
-            Count = 1;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -117,24 +121,15 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         MouseOverItem = this;
         if (!DraggingItem)
         {
+            SetupItemInfoWindow(MouseOverItem);
             GameManager.Instance.MouseOver = true;
-
-            SetupItemInfoWindow();
-
-            GameManager.Instance.ItemInfoWindow.SetActive(true);
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         MouseOverItem = null;
-        GameManager.Instance.ItemInfoWindow.SetActive(false);
         GameManager.Instance.MouseOver = false;
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Use();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -147,25 +142,32 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        DraggingItem = this;
-        GetComponent<Image>().raycastTarget = false;
+        if (count > 0)
+        {
+            DraggingItem = this;
+            GetComponent<Image>().raycastTarget = false;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        GetComponent<Image>().raycastTarget = true;
-        Player.Instance.Backpack.Content.GetComponent<GridLayoutGroup>().constraintCount = 6;
-        Player.Instance.Backpack.Content.GetComponent<GridLayoutGroup>().constraintCount = 5;
-        DraggingItem.transform.localPosition = new Vector3(DraggingItem.transform.position.x, DraggingItem.transform.position.y, 0);
-        DraggingItem = null;
+        if (DraggingItem)
+        {
+            GetComponent<Image>().raycastTarget = true;
+            Player.Instance.Backpack.Content.GetComponent<GridLayoutGroup>().constraintCount = 6;
+            Player.Instance.Backpack.Content.GetComponent<GridLayoutGroup>().constraintCount = 5;
+            DraggingItem.transform.localPosition = new Vector3(DraggingItem.transform.position.x, DraggingItem.transform.position.y, 0);
+
+            DraggingItem = null;
+        }
     }
 
-    public void SetupItemInfoWindow()
+    public void SetupItemInfoWindow(Item item)
     {
         GameObject window = GameManager.Instance.ItemInfoWindow;
-        window.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = MouseOverItem.icon;
-        window.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = MouseOverItem.Name;
-        window.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = $"{MouseOverItem.Count}개";
-        window.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = MouseOverItem.Info;
+        window.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = item.icon;
+        window.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = item.Name;
+        window.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = $"{item.Count}개";
+        window.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = item.Info;
     }
 }

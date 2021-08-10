@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 137496266973177434}
   - component: {fileID: 137496266973177433}
   m_Layer: 0
-  m_Name: WinterClothes
+  m_Name: 25_WinterClothes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,5 +47,6 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: af23fe5cc1f3d70458134d3487fadb42, type: 3}
   Name: "\uBC29\uD55C\uBCF5"
   Info: "\uCD94\uC704\uB97C \uB35C \uD0C4\uB2E4."
-  count: 1
+  count: 0
   IgnoreCountAttribute: 0
+  Size: {x: 0, y: 0}
