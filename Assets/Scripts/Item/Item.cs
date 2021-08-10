@@ -91,7 +91,12 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ID
             //치료
             case ItemType.TREATMENT: break;
             //덫
-            case ItemType.TRAP: break;
+            case ItemType.TRAP:
+                {
+                    Instantiate(PlayerInput.Building, PlayerInput.MousePos, Quaternion.identity);
+                    // Trap 클래스 추가
+                }
+                break;
             //도구
             case ItemType.TOOL: break;
             //만능
