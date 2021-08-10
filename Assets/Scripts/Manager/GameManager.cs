@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,12 +24,22 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Key : 조합해서 완성하는 아이템
-    /// Value : 조합하기 위해 필요한 아이템
+    /// Key : 조합해서 완성하는 아이템 이름
+    /// Value : { 필요 아이템 이름, 필요 아이템 개수 }, ...
     /// </summary>
-    public Dictionary<Item, List<Item>> CraftItem = new Dictionary<Item, List<Item>>
+    public Dictionary<string, List<Tuple<string, int>>> CraftItem = new Dictionary<string, List<Tuple<string, int>>>()
     {
-
+        {"덫(중급)",new List<Tuple<string, int>>{ new Tuple<string, int>("돌",3), } },
+        {"덫(상급)",new List<Tuple<string, int>>{ new Tuple<string, int>("철",2), } },
+        {"칼(중급)",new List<Tuple<string, int>>{ new Tuple<string, int>("돌",5), } },
+        {"칼(상급)",new List<Tuple<string, int>>{ new Tuple<string, int>("철",10), } },
+        {"도끼(하급)",new List<Tuple<string, int>>{ new Tuple<string, int>("돌",3), } },
+        {"도끼(중급)",new List<Tuple<string, int>>{ new Tuple<string, int>("돌",5), } },
+        {"도끼(상급)",new List<Tuple<string, int>>{ new Tuple<string, int>("철",10), } },
+        {"정수기",new List<Tuple<string, int>>{ new Tuple<string, int>("자갈",10), } },
+        {"텐트",new List<Tuple<string, int>>{ new Tuple<string, int>("덩쿨(중급)",10), } },
+        {"나무집",new List<Tuple<string, int>>{ new Tuple<string, int>("덩쿨(상급)",50), } },
+        {"틀",new List<Tuple<string, int>>{ new Tuple<string, int>("덩쿨(중급)",3), } },
     };
 
     private void Awake()
@@ -45,7 +56,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (MouseOver)
-            ItemInfoWindow.transform.position = PlayerInput.MousePos;
+        ItemInfoWindow.transform.position = PlayerInput.MousePos;
     }
 }

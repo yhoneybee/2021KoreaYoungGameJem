@@ -20,7 +20,7 @@ public enum ItemType
 }
 
 [System.Serializable]
-public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     public ItemType ItemType;
 
@@ -85,35 +85,70 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ID
         switch (ItemType)
         {
             //재료 사용
-            case ItemType.MATERIAL: break;
+            case ItemType.MATERIAL:
+                {
+                    // 그냥 재료는 Use못함
+                    Debug.LogError("재료를 어따 쓰게 친구?");
+                }
+                break;
             //음식 섭취
-            case ItemType.FOOD: break;
+            case ItemType.FOOD:
+                {
+                    Player.Instance.Hunger++;
+                }
+                break;
             //치료
-            case ItemType.TREATMENT: break;
+            case ItemType.TREATMENT:
+                {
+                    Player.Instance.Health++;
+                }
+                break;
             //덫
             case ItemType.TRAP:
                 {
                     Instantiate(PlayerInput.Building, PlayerInput.MousePos, Quaternion.identity);
-                    // Trap 클래스 추가
+                    // TODO : Trap 클래스 추가
                 }
                 break;
             //도구
-            case ItemType.TOOL: break;
+            case ItemType.TOOL:
+                {
+                    // TODO : Attack 연결하기 히히
+                }
+                break;
             //만능
-            case ItemType.UNIVERSAL: break;
+            case ItemType.UNIVERSAL:
+                {
+                    // TODO : 채집?
+                }
+                break;
             //정수기
-            case ItemType.WATER_PURIFIER: break;
+            case ItemType.WATER_PURIFIER:
+                {
+                    // TODO : 이거 물어봐야지 ㅎㅋ
+                }
+                break;
             //집
             case ItemType.HOUSE:
                 {
                     Instantiate(PlayerInput.Building, PlayerInput.MousePos, Quaternion.identity);
-                    // House 클래스 추가
+                    // TODO : House 클래스 추가
                 }
                 break;
             //틀
-            case ItemType.FRAME: break;
+            case ItemType.FRAME:
+                {
+                    // 이 이친구도 설치 류인가?
+                    // 그렇다면 TODO : Frame 클래스 (아마 Trap이랑 같은 클래스 사용할듯)
+                    Instantiate(PlayerInput.Building, PlayerInput.MousePos, Quaternion.identity);
+                }
+                break;
             //옷
-            case ItemType.CLOTHES: break;
+            case ItemType.CLOTHES:
+                {
+                    Debug.LogWarning("[ 금지된 접근입니다! ]");
+                }
+                break;
         }
     }
 
@@ -174,5 +209,10 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ID
         window.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = item.Name;
         window.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = $"{item.Count}개";
         window.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = item.Info;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+
     }
 }
