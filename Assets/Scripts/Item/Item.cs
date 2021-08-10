@@ -79,12 +79,31 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     /// </summary>
     public bool IgnoreCountAttribute = false;
 
-    /// <summary>
-    /// 아이템을 사용함 ( 무기 -> 장착 / 건물 -> 건설 / 소모품 -> 사용 / 음식 -> 먹기 )
-    /// </summary>
     public void Use()
     {
-
+        switch (ItemType)
+        {
+            //재료 사용
+            case ItemType.MATERIAL: break;
+            //음식 섭취
+            case ItemType.FOOD: break;
+            //치료
+            case ItemType.TREATMENT: break;
+            //덫
+            case ItemType.TRAP: break;
+            //도구
+            case ItemType.TOOL: break;
+            //만능
+            case ItemType.UNIVERSAL: break;
+            //정수기
+            case ItemType.WATER_PURIFIER: break;
+            //집
+            case ItemType.HOUSE: break;
+            //틀
+            case ItemType.FRAME: break;
+            //옷
+            case ItemType.CLOTHES: break;
+        }
     }
 
     private void Update()
@@ -136,8 +155,9 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     {
         GetComponent<Image>().raycastTarget = true;
         Player.Instance.Backpack.Content.GetComponent<GridLayoutGroup>().constraintCount = 6;
-        DraggingItem = null;
         Player.Instance.Backpack.Content.GetComponent<GridLayoutGroup>().constraintCount = 5;
+        DraggingItem.transform.localPosition = new Vector3(DraggingItem.transform.position.x, DraggingItem.transform.position.y, 0);
+        DraggingItem = null;
     }
 
     public void SetupItemInfoWindow()
@@ -145,7 +165,7 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         GameObject window = GameManager.Instance.ItemInfoWindow;
         window.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = MouseOverItem.icon;
         window.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = MouseOverItem.Name;
-        window.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = $"{MouseOverItem.Count}개 보유 중";
+        window.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = $"{MouseOverItem.Count}개";
         window.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = MouseOverItem.Info;
     }
 }

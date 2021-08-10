@@ -25,12 +25,12 @@ public class Backpack : MonoBehaviour
     /// 아이템을 얻는 함수
     /// </summary>
     /// <param name="item"></param>
-    public void AddItem(Item item)
+    public void AddItem(Item item, int count = 1)
     {
         if (item)
         {
             if (!item.IgnoreCountAttribute)
-                ++item.Count;
+                item.Count += count;
 
             SetUi();
         }
@@ -43,7 +43,6 @@ public class Backpack : MonoBehaviour
     /// <param name="Count">버릴 개수</param>
     public void DiscardItem(Item item, int Count = 1)
     {
-        // 바닥에 아이템 버려져야 함
         if (item)
         {
             item.Count -= Count;
@@ -52,7 +51,21 @@ public class Backpack : MonoBehaviour
                 item.Count = 0;
                 SetUi();
             }
+            DropItem(item).Count = Count;
         }
+    }
+
+    Item DropItem(Item item)
+    {
+        GameObject go = Instantiate(item.gameObject, PlayerInput.MousePos, Quaternion.identity);
+        go.transform.SetParent(GameObject.Find("Canvas").transform);
+        go.GetComponent<RectTransform>().sizeDelta = Vector2.one * 100;
+        go.transform.localScale = Vector3.one;
+        go.name = item.Name;
+        go.AddComponent<ItemRotate>();
+        go.GetComponent<Image>().raycastTarget = true;
+
+        return go.GetComponent<Item>();
     }
 
     public void SetUi(bool isFrist = false)
