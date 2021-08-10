@@ -9,7 +9,7 @@ public class PlayerInput
     Player Player { get; set; }
 
     Vector2 Dir { get; set; }
-    Vector2 MousePos { get; set; }
+    public static Vector2 MousePos { get; private set; }
     Quaternion Quaternion { get; set; }
 
     float Angle { get; set; }
@@ -72,6 +72,7 @@ public class PlayerInput
         if (Input.GetKeyDown(KeyCode.E))
         {
             Player.Backpack.OpenAndClose();
+            GameManager.Instance.ItemInfoWindow.SetActive(false);
         }
         if (Input.GetKeyDown(KeyCode.T))
         {

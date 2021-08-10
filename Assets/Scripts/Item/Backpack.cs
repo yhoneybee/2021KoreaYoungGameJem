@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 public class Backpack : MonoBehaviour
 {
-    const int MAX_COUNT = 30;
-    public readonly List<Item> items = new List<Item>();
+    public GameObject Content;
+
+    private void Start()
+    {
+    }
 
     public void OpenAndClose()
     {
@@ -17,26 +21,58 @@ public class Backpack : MonoBehaviour
             gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// 아이템을 얻는 함수
+    /// </summary>
+    /// <param name="item"></param>
     public void AddItem(Item item)
     {
         if (item)
         {
-            if (items.Count <= MAX_COUNT)
+            if (!item.IgnoreCountAttribute)
+                ++item.Count;
+
+            SetUi();
+        }
+    }
+
+    /// <summary>
+    /// 아이템을 일부만 버리는 함수
+    /// </summary>
+    /// <param name="item">버릴려는 아이템</param>
+    /// <param name="Count">버릴 개수</param>
+    public void DiscardItem(Item item, int Count = 1)
+    {
+        // 바닥에 아이템 버려져야 함
+        if (item)
+        {
+            item.Count -= Count;
+            if (item.Count <= 0)
             {
-                items.Add(item);
-            }
-            else
-            {
-                Debug.LogWarning($"가방 최대치에 도달하였습니다.");//라고 띄우기
+                item.Count = 0;
+                SetUi();
             }
         }
     }
 
-    public void DiscardItem(Item item)
+    public void SetUi(bool isFrist = false)
     {
-        if (item)
+        Item item, gm_item;
+
+        for (int i = 0; i < GameManager.Instance.Items.Count; i++)
         {
-            items.Remove(item);
+            item = Content.transform.GetChild(i).GetComponent<Item>();
+            gm_item = GameManager.Instance.Items[i];
+
+            if (isFrist)
+            {
+                item.Count = gm_item.Count;
+                item.IgnoreCountAttribute = gm_item.IgnoreCountAttribute;
+            }
+            item.ItemType = gm_item.ItemType;
+            item.Icon = gm_item.Icon;
+            item.Name = gm_item.Name;
+            item.Info = gm_item.Info;
         }
     }
 }
