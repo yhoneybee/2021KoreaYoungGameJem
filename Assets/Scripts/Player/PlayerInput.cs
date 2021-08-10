@@ -123,6 +123,25 @@ public class PlayerInput
                 }
             }
         }
+
+        if (!GameManager.Instance.MouseOver)
+        {
+            RaycastHit2D over = Physics2D.Raycast(MousePos, Vector3.forward, 1000);
+            if (over)
+            {
+                Item over_item = over.transform.GetComponent<Item>();
+                if (over_item)
+                {
+                    Item.MouseOverItem = over_item;
+                    over_item.SetupItemInfoWindow(over_item);
+                    GameManager.Instance.ItemInfoWindow.SetActive(true);
+                }
+            }
+            else
+            {
+                GameManager.Instance.ItemInfoWindow.SetActive(false);
+            }
+        }
     }
 
     void MouseWheel()

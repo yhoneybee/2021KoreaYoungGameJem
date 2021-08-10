@@ -43,6 +43,8 @@ public class Backpack : MonoBehaviour
     /// <param name="Count">버릴 개수</param>
     public void DiscardItem(Item item, bool isDrop = true, int Count = 1)
     {
+        if (Count == 0)
+            return;
         if (item)
         {
             if (item.IgnoreCountAttribute)
