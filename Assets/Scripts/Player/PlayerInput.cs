@@ -13,7 +13,7 @@ public class PlayerInput
     Quaternion Quaternion { get; set; }
 
     float Angle { get; set; }
-    float Speed { get; set; } = 1f;
+    float Speed { get; set; } = 3f;
     bool BuildMode { get; set; } = false;
     void SetAngle()
     {
@@ -25,7 +25,7 @@ public class PlayerInput
         Quaternion = Quaternion.AngleAxis(Angle - 90, Vector3.forward);
     }
 
-    void MouseClick()
+    void MouseClick()// Ray를 쏠 예정
     {
         if (Input.GetMouseButtonDown(0))
         {
