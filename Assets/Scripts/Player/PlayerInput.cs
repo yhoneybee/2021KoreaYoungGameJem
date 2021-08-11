@@ -15,6 +15,8 @@ public class PlayerInput
 
     public static GameObject Building { get; set; }
 
+    public static Box Box { get; set; }
+
     float Angle { get; set; }
     float Speed { get; set; } = 3f;
 
@@ -65,7 +67,7 @@ public class PlayerInput
             Item select = Player.Hotbar[ItemContainer.SelectedIndex].Item;
             if (select && select.ItemType == ItemType.HOUSE)
             {
-                Building.transform.position = MousePos;
+                Building.transform.position = new Vector3(MousePos.x, MousePos.y, 100);
             }
         }
     }
@@ -117,6 +119,9 @@ public class PlayerInput
                     // 상호작용키
                     Item item = hit.transform.gameObject.GetComponent<Item>();
 
+                    if (hit.transform.gameObject.GetComponent<Box>())
+                        Box = hit.transform.gameObject.GetComponent<Box>();
+
                     if (item)
                     {
                         Item dragged = GameManager.Instance.Ui_Items.Find(o => o.Name == item.Name);
@@ -129,9 +134,19 @@ public class PlayerInput
                             GameManager.Instance.MouseOver = false;
                         }
                     }
+                    else if (Box)
+                    {
+                        if (Vector2.Distance(Player.Instance.transform.position, Box.transform.position) < 3)
+                        {
+                            Box.OpenAndCloseBox(!GameManager.Instance.BoxWindow.activeSelf);
+                        }
+                    }
                 }
             }
         }
+
+        if (Box && Vector2.Distance(Player.Instance.transform.position, Box.transform.position) > 3)
+            Box.OpenAndCloseBox(false);
 
         if (!GameManager.Instance.MouseOver)
         {

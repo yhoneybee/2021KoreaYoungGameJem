@@ -74,10 +74,11 @@ public class Backpack : MonoBehaviour
         }
     }
 
-    Item DropItem(Item item)
+    public Item DropItem(Item item)
     {
         GameObject go = Instantiate(item.gameObject, PlayerInput.MousePos, Quaternion.identity);
         go.transform.localScale = Vector3.one;
+        go.transform.position += new Vector3(0, 0, 100);
         go.name = item.Name;
         go.AddComponent<ItemRotate>();
         go.AddComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
@@ -89,22 +90,7 @@ public class Backpack : MonoBehaviour
 
     public void SetUi(bool isFrist = false)
     {
-        Item item, gm_item;
-
         for (int i = 0; i < GameManager.Instance.Items.Count; i++)
-        {
-            item = GameManager.Instance.Ui_Items[i];
-            gm_item = GameManager.Instance.Items[i];
-
-            if (isFrist)
-                item.Count = gm_item.Count;
-
-            item.ItemType = gm_item.ItemType;
-            item.Icon = gm_item.Icon;
-            item.BuildSprite = gm_item.BuildSprite;
-            item.Name = gm_item.Name;
-            item.Info = gm_item.Info;
-            item.IgnoreCountAttribute = gm_item.IgnoreCountAttribute;
-        }
+            GameManager.Instance.Ui_Items[i].ItemAllocation(GameManager.Instance.Items[i], isFrist);
     }
 }

@@ -140,7 +140,9 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
             //집
             case ItemType.HOUSE:
                 {
-                    Instantiate(PlayerInput.Building, PlayerInput.MousePos, Quaternion.identity).GetComponent<Build>().Placed = true;
+                    GameObject go = Instantiate(PlayerInput.Building, PlayerInput.MousePos, Quaternion.identity);
+                    go.GetComponent<Build>().Placed = true;
+                    go.transform.localPosition += new Vector3(0, 0, 100);
                     // TODO : House 클래스 추가 ( 이거 PlayerInput.Building에서 추가함 )
                 }
                 break;
@@ -205,6 +207,10 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
             GetComponent<Image>().raycastTarget = true;
             Player.Instance.Backpack.Content.GetComponent<GridLayoutGroup>().constraintCount = 6;
             Player.Instance.Backpack.Content.GetComponent<GridLayoutGroup>().constraintCount = 5;
+
+            GameManager.Instance.BoxWindow.GetComponent<GridLayoutGroup>().constraintCount = 3;
+            GameManager.Instance.BoxWindow.GetComponent<GridLayoutGroup>().constraintCount = 2;
+
             DraggingItem.transform.localPosition = new Vector3(DraggingItem.transform.position.x, DraggingItem.transform.position.y, 0);
 
             DraggingItem = null;
@@ -223,5 +229,22 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     public void OnPointerClick(PointerEventData eventData)
     {
 
+    }
+
+    public void ItemAllocation(Item item, bool count = true)
+    {
+        if (count)
+            Count = item.Count;
+        ItemType = item.ItemType;
+        Icon = item.Icon;
+        BuildSprite = item.BuildSprite;
+        Name = item.Name;
+        Info = item.Info;
+        IgnoreCountAttribute = item.IgnoreCountAttribute;
+    }
+
+    public bool ItemEqual(Item item)
+    {
+        return (Count == item.Count && Name == item.Name);
     }
 }

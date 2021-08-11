@@ -13,7 +13,10 @@ public class ItemContainer : MonoBehaviour, IDropHandler
         set
         {
             item = value;
-            GetComponent<Image>().sprite = item.Icon;
+            if (item)
+                GetComponent<Image>().sprite = item.Icon;
+            else
+                GetComponent<Image>().sprite = null;
         }
     }
 
@@ -43,6 +46,44 @@ public class ItemContainer : MonoBehaviour, IDropHandler
         if (Item.DraggingItem)
         {
             Item = Item.DraggingItem;
+
+            //if (Item.DraggingItem.transform.parent.name == "BoxWindow")
+            {
+                Item gitem = GetComponent<Item>();
+                if (gitem)
+                {
+                    gitem.ItemAllocation(Item);
+                    gitem.enabled = true;
+                    enabled = false;
+
+                    for (int i = 0; i < PlayerInput.Box.Items.Count; i++)
+                    {
+                        if (!PlayerInput.Box.Items[i]) continue;
+
+                        if (PlayerInput.Box.Items[i].Name == Item.Name)
+                        {
+                            if (gitem != Item.DraggingItem)
+                            {
+                                PlayerInput.Box.Items[i] = gitem;
+                                break;
+                            }
+                        }
+                    }
+
+                    ItemContainer ic = Item.DraggingItem.GetComponent<ItemContainer>();
+                    if (ic)
+                    {
+                        Item.DraggingItem.enabled = false;
+                        ic.Item = null;
+                        ic.enabled = true;
+                        Item.DraggingItem.ItemAllocation(new Item());
+                    }
+                    Item.DraggingItem.GetComponent<Image>().raycastTarget = true;
+                    Item.DraggingItem.Count = 0;
+                }
+                else if (Item.transform.parent.name == "BoxWindow")
+                    Item = null;
+            }
         }
     }
 

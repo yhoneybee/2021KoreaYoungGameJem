@@ -8,23 +8,28 @@ using TMPro;
 public class DiscardZone : MonoBehaviour, IDropHandler
 {
     public GameObject DropSeveral;
-    string Name;
+    Item Item;
 
     int val = 1;
     int Val
     {
         get { return val; }
-        set 
+        set
         {
             val = value;
             DropSeveral.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{val}";
         }
     }
+
     public void OnDrop(PointerEventData eventData)
     {
         // TODO :  개수가 1개 이상이라면 여러개 버릴 수 있는 UI 띄우기
-        Name = Item.DraggingItem.Name;
-        DropSeveral.SetActive(true);
+        if (Item.DraggingItem)
+        {
+            Val = Item.DraggingItem.Count;
+            Item = Item.DraggingItem;
+            DropSeveral.SetActive(true);
+        }
     }
 
     public void Min() => Val = 0;
@@ -35,13 +40,48 @@ public class DiscardZone : MonoBehaviour, IDropHandler
     }
     public void Plus()
     {
-        if (Val < GameManager.Instance.Ui_Items.Find(o => o.Name == Name).Count)
-            ++Val;
+        if (Item.GetComponent<ItemContainer>())
+        {
+            if (Val < PlayerInput.Box.Items.Find(o => o.ItemEqual(Item)).Count)
+                ++Val;
+        }
+        else
+        {
+            if (Val < GameManager.Instance.Ui_Items.Find(o => o.ItemEqual(Item)).Count)
+                ++Val;
+        }
     }
-    public void Max() => Val = GameManager.Instance.Ui_Items.Find(o => o.Name == Name).Count;
+    public void Max()
+    {
+        if (Item.GetComponent<ItemContainer>())
+            Val = PlayerInput.Box.Items.Find(o => o.ItemEqual(Item)).Count;
+        else
+            Val = GameManager.Instance.Ui_Items.Find(o => o.ItemEqual(Item)).Count;
+    }
+
     public void Trash()
     {
-        Player.Instance.Backpack.DiscardItem(GameManager.Instance.Ui_Items.Find(o => o.Name == Name), true, Val);
+        if (Item.GetComponent<ItemContainer>())
+        {
+            Item trash = PlayerInput.Box.Items.Find(o => o.Name == Item.Name);
+            if (trash)
+            {
+                trash.Count -= Val;
+
+                Player.Instance.Backpack.DropItem(trash).Count = Val;
+
+                if (trash.Count == 0)
+                {
+                    trash.ItemAllocation(new Item());
+                    trash.enabled = false;
+                    trash.GetComponent<ItemContainer>().enabled = true;
+                }
+            }
+        }
+        else
+        {
+            Player.Instance.Backpack.DiscardItem(GameManager.Instance.Ui_Items.Find(o => o.Name == Item.Name), true, Val);
+        }
         DropSeveral.SetActive(false);
     }
 }
