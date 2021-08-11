@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
 
     public TextMeshProUGUI DayText;
 
+    public TextMeshProUGUI ItemName;
+
     int health = 10;
     public int Health
     {

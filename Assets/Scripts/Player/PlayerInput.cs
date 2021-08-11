@@ -162,14 +162,12 @@ public class PlayerInput
             // up
             BuildMode = false;
             ItemContainer.SelectedIndex++;
-            ItemContainer.SelectedIndex %= 9;
         }
         else if (wheel < 0)
         {
             // down
             BuildMode = false;
             ItemContainer.SelectedIndex--;
-            if (ItemContainer.SelectedIndex < 0) ItemContainer.SelectedIndex = 8;
         }
 
         Player.Instance.HotbarFrame.transform.localPosition = new Vector3(Player.Instance.Hotbar[ItemContainer.SelectedIndex].transform.localPosition.x, -465, 0);

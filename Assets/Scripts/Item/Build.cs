@@ -12,7 +12,6 @@ public class Build : MonoBehaviour
         set
         {
             placed = value;
-            print($"Place, {placed}");
             if (placed)
                 GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
         }
@@ -30,12 +29,10 @@ public class Build : MonoBehaviour
             {
                 overlap = value;
 
-                print($"!Place({Placed}), OverLap = {overlap}");
-
                 if (overlap)
                     GetComponent<SpriteRenderer>().color = new Color(1, 0.3f, 0.3f, 0.5f);
                 else
-                    GetComponent<SpriteRenderer>().color = new Color(0.3f, 1, 0.3f, 0.5f);
+                    GetComponent<SpriteRenderer>().color = new Color(0.3f, 1, 0.3f, 1);
             }
         }
     }

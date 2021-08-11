@@ -20,7 +20,23 @@ public class ItemContainer : MonoBehaviour, IDropHandler
     /// <summary>
     /// 핫바에서 선택된 아이템 칸
     /// </summary>
-    public static int SelectedIndex { get; set; }
+    static int selected_index;
+    public static int SelectedIndex
+    {
+        get { return selected_index; }
+        set
+        {
+            selected_index = value;
+            selected_index %= 9;
+            if (selected_index < 0) selected_index = 8;
+
+            Item selected = Player.Instance.Hotbar[selected_index].item;
+            if (selected)
+                Player.Instance.ItemName.text = $"{selected.Name}";
+            else
+                Player.Instance.ItemName.text = $"";
+        }
+    }
 
     public void OnDrop(PointerEventData eventData)
     {
