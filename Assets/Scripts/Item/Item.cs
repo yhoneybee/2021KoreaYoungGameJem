@@ -49,6 +49,15 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         }
     }
 
+    [SerializeField]
+    private Sprite build_sprite;
+
+    public Sprite BuildSprite
+    {
+        get { return build_sprite; }
+        set { build_sprite = value; }
+    }
+
     public string Name;
 
     /// <summary>
@@ -131,8 +140,8 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
             //집
             case ItemType.HOUSE:
                 {
-                    Instantiate(PlayerInput.Building, PlayerInput.MousePos, Quaternion.identity);
-                    // TODO : House 클래스 추가
+                    Instantiate(PlayerInput.Building, PlayerInput.MousePos, Quaternion.identity).GetComponent<Build>().Placed = true;
+                    // TODO : House 클래스 추가 ( 이거 PlayerInput.Building에서 추가함 )
                 }
                 break;
             //틀

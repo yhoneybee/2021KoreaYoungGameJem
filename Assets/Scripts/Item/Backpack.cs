@@ -16,9 +16,15 @@ public class Backpack : MonoBehaviour
     public void OpenAndClose()
     {
         if (gameObject.activeSelf)
+        {
             gameObject.SetActive(false);
+            Player.Instance.DayText.GetComponent<RectTransform>().anchoredPosition = new Vector3(40, -25, 0);
+        }
         else
+        {
             gameObject.SetActive(true);
+            Player.Instance.DayText.GetComponent<RectTransform>().anchoredPosition = new Vector3(-625, -25, 0);
+        }
     }
 
     /// <summary>
@@ -29,7 +35,9 @@ public class Backpack : MonoBehaviour
     {
         if (item)
         {
-            if (!item.IgnoreCountAttribute)
+            if (item.IgnoreCountAttribute)
+                item.Count = 1;
+            else
                 item.Count += count;
 
             SetUi();
@@ -93,6 +101,7 @@ public class Backpack : MonoBehaviour
 
             item.ItemType = gm_item.ItemType;
             item.Icon = gm_item.Icon;
+            item.BuildSprite = gm_item.BuildSprite;
             item.Name = gm_item.Name;
             item.Info = gm_item.Info;
             item.IgnoreCountAttribute = gm_item.IgnoreCountAttribute;

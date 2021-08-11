@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5413893227687245742}
   - component: {fileID: 5413893227687245729}
   m_Layer: 0
-  m_Name: EmergencyFood
+  m_Name: 07_EmergencyFood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemType: 1
   icon: {fileID: 21300000, guid: af23fe5cc1f3d70458134d3487fadb42, type: 3}
+  build_sprite: {fileID: 21300000, guid: d2321c56438375c409c44f6eee45668f, type: 3}
   Name: "\uBE44\uC0C1\uC2DD\uB7C9"
   Info: "\uC778\uAC04\uC758 \uBB38\uBA85\uC774 \uCC2C\uB780\uD588\uC744 \uB54C \uBA39\uC5C8\uB358
     \uC74C\uC2DD\uC774\uB2E4."

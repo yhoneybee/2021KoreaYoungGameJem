@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5213473047287422456}
   - component: {fileID: 5213473047287422457}
   m_Layer: 0
-  m_Name: Vine_MiddleClass
+  m_Name: 12_Vine_MiddleClass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemType: 3
   icon: {fileID: 21300000, guid: af23fe5cc1f3d70458134d3487fadb42, type: 3}
+  build_sprite: {fileID: 21300000, guid: d2321c56438375c409c44f6eee45668f, type: 3}
   Name: "\uB369\uCFE8(\uC911\uAE09)"
   Info: "\uBBF8\uBBF8\uD55C \uC18D\uBC15\uC758 \uD6A8\uACFC\uAC00 \uC788\uB2E4."
   count: 1

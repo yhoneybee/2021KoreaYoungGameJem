@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 899662866782294017}
   - component: {fileID: 899662866782294078}
   m_Layer: 0
-  m_Name: Axe_HighClass
+  m_Name: 20_Axe_HighClass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemType: 5
   icon: {fileID: 21300000, guid: af23fe5cc1f3d70458134d3487fadb42, type: 3}
+  build_sprite: {fileID: 21300000, guid: d2321c56438375c409c44f6eee45668f, type: 3}
   Name: "\uB3C4\uB07C(\uC0C1\uAE09)"
   Info: "\uC88B\uC740 \uC131\uB2A5\uC744 \uBCF4\uC5EC\uC900\uB2E4."
   count: 1

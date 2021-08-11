@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7632983347809115371}
   - component: {fileID: 7632983347809115370}
   m_Layer: 0
-  m_Name: Fruit
+  m_Name: 06_Fruit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemType: 1
   icon: {fileID: 21300000, guid: af23fe5cc1f3d70458134d3487fadb42, type: 3}
+  build_sprite: {fileID: 21300000, guid: d2321c56438375c409c44f6eee45668f, type: 3}
   Name: "\uC5F4\uB9E4"
   Info: "\uB098\uBB34\uC5D0\uC11C \uC5BB\uC740 \uAC83 \uADF8\uB0E5 \uBA39\uC5B4\uB3C4
     \uB9DB\uC788\uB2E4."

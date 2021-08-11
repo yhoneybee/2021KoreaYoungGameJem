@@ -19,7 +19,7 @@ public class PlayerInput
     float Speed { get; set; } = 3f;
 
     bool build_mode = false;
-    bool BuildMode
+    public bool BuildMode
     {
         get { return build_mode; }
         set
@@ -32,10 +32,12 @@ public class PlayerInput
                 if (select && select.Count > 0 && select.ItemType == ItemType.HOUSE)
                 {
                     Building = new GameObject(select.Name);
-                    Building.AddComponent<SpriteRenderer>().sprite = select.Icon;
-                    Building.GetComponent<SpriteRenderer>().material.color = new Color(0.3f, 1, 0.3f, 1);
+                    Building.transform.localScale = Vector3.one * 3;
+                    Building.AddComponent<SpriteRenderer>().sprite = select.BuildSprite;
+                    Building.AddComponent<Build>();
                     Building.AddComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
                     Building.AddComponent<BoxCollider2D>().size = Vector2.one;
+                    Building.GetComponent<BoxCollider2D>().isTrigger = true;
                 }
             }
             else
@@ -97,10 +99,17 @@ public class PlayerInput
                 {
                     Item item = Player.Hotbar[ItemContainer.SelectedIndex].Item;
                     // 짓기
-                    if (item.ItemType == ItemType.HOUSE)
+                    if (!Building.GetComponent<Build>().Overlap)
                     {
-                        GameManager.Instance.Ui_Items.Find(o => o.Name == item.Name).Use();
-                        BuildMode = false;
+                        if (item.ItemType == ItemType.HOUSE)
+                        {
+                            GameManager.Instance.Ui_Items.Find(o => o.Name == item.Name).Use();
+                            BuildMode = false;
+                        }
+                    }
+                    else
+                    {
+                        // 경고창 띄우기?
                     }
                 }
                 else
@@ -189,10 +198,6 @@ public class PlayerInput
             BuildMode = false;
             Player.Backpack.OpenAndClose();
             GameManager.Instance.ItemInfoWindow.SetActive(false);
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            // 멀티 시 구현
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
