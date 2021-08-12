@@ -68,13 +68,21 @@ public class DiscardZone : MonoBehaviour, IDropHandler
             {
                 trash.Count -= Val;
 
-                Player.Instance.Backpack.DropItem(trash).Count = Val;
+                if (Val != 0)
+                    Player.Instance.Backpack.DropItem(trash).Count = Val;
 
                 if (trash.Count == 0)
                 {
                     trash.ItemAllocation(new Item());
                     trash.enabled = false;
                     trash.GetComponent<ItemContainer>().enabled = true;
+
+                    Box box = PlayerInput.Box.GetComponent<Box>();
+
+                    int r = System.Convert.ToInt32(Item.name);
+
+                    box.idxs.Remove(r);
+                    box.Items.Remove(Item);
                 }
             }
         }

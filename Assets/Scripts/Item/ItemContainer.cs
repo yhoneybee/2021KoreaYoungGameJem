@@ -47,11 +47,14 @@ public class ItemContainer : MonoBehaviour, IDropHandler
         {
             Item = Item.DraggingItem;
 
+            print("item");
             //if (Item.DraggingItem.transform.parent.name == "BoxWindow")
             {
                 Item gitem = GetComponent<Item>();
                 if (gitem)
                 {
+                    print("gitem");
+
                     gitem.ItemAllocation(Item);
                     gitem.enabled = true;
                     enabled = false;
@@ -71,15 +74,44 @@ public class ItemContainer : MonoBehaviour, IDropHandler
                     }
 
                     ItemContainer ic = Item.DraggingItem.GetComponent<ItemContainer>();
+
+                    Box box = PlayerInput.Box.GetComponent<Box>();
+
+                    int a = System.Convert.ToInt32(name);
+
                     if (ic)
                     {
+                        print("ic");
+
                         Item.DraggingItem.enabled = false;
                         ic.Item = null;
                         ic.enabled = true;
                         Item.DraggingItem.ItemAllocation(new Item());
+
+                        int r = System.Convert.ToInt32(Item.DraggingItem.name);
+
+                        box.idxs.Remove(r);
                     }
+
+                    enabled = false;
+                    gitem.enabled = true;
+
+                    box.idxs.Add(a);
+                    print(a);
+
+                    try
+                    {
+                        box.Items[a] = GetComponent<Item>();
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.Log(e.Message);
+                    }
+
                     Item.DraggingItem.GetComponent<Image>().raycastTarget = true;
                     Item.DraggingItem.Count = 0;
+                    if (Item.DraggingItem.transform.parent.name == "BoxWindow")
+                        Item.DraggingItem.GetComponent<Image>().color = new Color(1, 1, 1, 1);
                 }
                 else if (Item.transform.parent.name == "BoxWindow")
                     Item = null;

@@ -48,5 +48,5 @@ MonoBehaviour:
   build_sprite: {fileID: 21300000, guid: d2321c56438375c409c44f6eee45668f, type: 3}
   Name: "\uBC29\uC5F4\uBCF5"
   Info: "\uB354\uC704\uB97C \uB35C \uD0C4\uB2E4."
-  count: 0
+  count: 1
   IgnoreCountAttribute: 0

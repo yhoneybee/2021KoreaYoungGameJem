@@ -170,7 +170,7 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     public void OnPointerEnter(PointerEventData eventData)
     {
         MouseOverItem = this;
-        if (!DraggingItem)
+        //if (!DraggingItem)
         {
             SetupItemInfoWindow(MouseOverItem);
             GameManager.Instance.MouseOver = true;

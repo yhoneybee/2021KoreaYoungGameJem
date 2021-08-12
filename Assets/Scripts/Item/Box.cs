@@ -12,12 +12,18 @@ public class Box : MonoBehaviour
     /// 상자안에 있는 아이템들
     /// </summary>
     public List<Item> Items { get; set; } = new List<Item>();
+    public List<int> idxs = new List<int>();
 
     private void Start()
     {
+        Items.Add(new Item());
         Items.AddRange(GameManager.Instance.BoxWindow.GetComponentsInChildren<Item>());
         for (int i = 0; i < ItemCount; i++)
-            Items[Random.Range(0, 14)].ItemAllocation(GameManager.Instance.Ui_Items[Random.Range(0, GameManager.Instance.Ui_Items.Count)]);
+        {
+            int rand = Random.Range(1, 15);
+            Items[rand].ItemAllocation(GameManager.Instance.Ui_Items[Random.Range(0, GameManager.Instance.Ui_Items.Count)]);
+            idxs.Add(rand);
+        }
     }
 
     public void OpenAndCloseBox(bool open)
@@ -28,25 +34,30 @@ public class Box : MonoBehaviour
         {
             Item item;
 
-            for (int i = 0; i < 14; i++)
+            for (int i = 1; i < Items.Count; i++)
             {
-                item = GameManager.Instance.BoxWindow.transform.GetChild(i).GetComponent<Item>();
+                item = GameManager.Instance.BoxWindow.transform.GetChild(i - 1).GetComponent<Item>();
 
-                if (Items[i] && Items[i].Name == "")
+                if (idxs.Find(o => o == i) == 0)
                 {
                     item.enabled = false;
-                    continue;
+                    item.GetComponent<ItemContainer>().enabled = true;
+                    item.GetComponent<Image>().sprite = null;
                 }
-
-                item.GetComponent<ItemContainer>().enabled = false;
-
-                if (Items[i])
+                else
                 {
-                    item.ItemAllocation(Items[i]);
-                }
+                    item.enabled = true;
+                    item.GetComponent<ItemContainer>().enabled = false;
 
-                if (item.Count == 0)
-                    item.Count = Random.Range(1, 15);
+                    try
+                    {
+                        item.ItemAllocation(Items[i]);
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.Log(e.Message);
+                    }
+                }
             }
         }
     }
