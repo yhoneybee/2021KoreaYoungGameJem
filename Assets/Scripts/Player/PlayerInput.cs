@@ -84,9 +84,18 @@ public class PlayerInput
                 {
                     // 분해
                 }
-                else
+            }
+            else
+            {
+                // 사용
+                Item item = Player.Hotbar[ItemContainer.SelectedIndex].Item;
+
+                if (!Player.Instance.Backpack.gameObject.activeSelf &&
+                    !GameManager.Instance.ItemInfoWindow.activeSelf &&
+                    !GameManager.Instance.BoxWindow.activeSelf)
                 {
-                    // 사용
+                    if (item && item.ItemType != ItemType.HOUSE)
+                        item.Use();
                 }
             }
         }

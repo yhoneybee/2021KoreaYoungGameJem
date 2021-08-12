@@ -136,7 +136,8 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(60 * 5);
+            yield return new WaitForSeconds(30);
+            //yield return new WaitForSeconds(60 * 5);
             --Hunger;
             --Moisture;
         }

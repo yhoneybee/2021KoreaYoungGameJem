@@ -18,10 +18,23 @@ public class Box : MonoBehaviour
     {
         Items.Add(new Item());
         Items.AddRange(GameManager.Instance.BoxWindow.GetComponentsInChildren<Item>());
+
+        int rand_item = Random.Range(0, GameManager.Instance.Ui_Items.Count - 2);
+
+        List<int> overlap = new List<int>();
+        for (int i = 0; i < GameManager.Instance.Ui_Items.Count - 2; i++)
+            overlap.Add(i);
+
+
         for (int i = 0; i < ItemCount; i++)
         {
             int rand = Random.Range(1, 15);
-            Items[rand].ItemAllocation(GameManager.Instance.Ui_Items[Random.Range(0, GameManager.Instance.Ui_Items.Count)]);
+
+            while (overlap[rand_item] != rand_item)
+                rand_item = Random.Range(0, GameManager.Instance.Ui_Items.Count - 2);
+
+            overlap[rand_item] = -9999;
+            Items[rand].ItemAllocation(GameManager.Instance.Ui_Items[rand_item]);
             idxs.Add(rand);
         }
     }

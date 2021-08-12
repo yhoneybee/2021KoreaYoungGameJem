@@ -90,7 +90,6 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void Use()
     {
-        Player.Instance.Backpack.DiscardItem(this, false);
         switch (ItemType)
         {
             //재료 사용
@@ -98,12 +97,15 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                 {
                     // 그냥 재료는 Use못함
                     Debug.LogError("재료를 어따 쓰게 친구?");
+                    return;
                 }
-                break;
             //음식 섭취
             case ItemType.FOOD:
                 {
-                    Player.Instance.Hunger++;
+                    if (Name == "물")
+                        Player.Instance.Moisture++;
+                    else
+                        Player.Instance.Hunger++;
                 }
                 break;
             //치료
@@ -161,6 +163,7 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                 }
                 break;
         }
+        Player.Instance.Backpack.DiscardItem(this, false);
     }
 
     private void Update()
