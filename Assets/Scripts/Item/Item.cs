@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public enum ItemType
 {
@@ -231,7 +232,44 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!GetComponent<ItemContainer>())
+        {
+            var craft = Crafting();
+            if (craft.craftable)
+            {
+                print($"{Name}아이템 조합 가능!");
 
+                foreach (var item in craft.needs)
+                    item.Item1.Count -= item.Item2;
+
+                print($"{Name}아이템 조합 성공!");
+                Count++;
+                SetupItemInfoWindow(this);
+            }
+        }
+    }
+
+    public (bool craftable, List<Tuple<Item, int>> needs) Crafting()
+    {
+        Item resource = null;
+        if (GameManager.Instance.CraftItem.ContainsKey(Name))
+        {
+            var tuples = GameManager.Instance.CraftItem[Name];
+            List<Tuple<Item, int>> result = new List<Tuple<Item, int>>();
+            foreach (var item in tuples)
+            {
+                //재료 아이템 찾기
+                resource = GameManager.Instance.Ui_Items.Find(o => o.Name == item.Item1);
+
+                result.Add(new Tuple<Item, int>(resource, item.Item2));
+
+                //재료 아이템 필요 개수 미달
+                if (resource && resource.Count < item.Item2)
+                    return (false, null);
+            }
+            return (true, result);
+        }
+        return (false, null);
     }
 
     public void ItemAllocation(Item item, bool count = true)

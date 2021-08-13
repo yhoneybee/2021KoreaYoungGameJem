@@ -131,6 +131,8 @@ public class PlayerInput
                     if (hit.transform.gameObject.GetComponent<Box>())
                         Box = hit.transform.gameObject.GetComponent<Box>();
 
+                    Build build = hit.transform.gameObject.GetComponent<Build>();
+
                     if (item)
                     {
                         Item dragged = GameManager.Instance.Ui_Items.Find(o => o.Name == item.Name);
@@ -150,12 +152,22 @@ public class PlayerInput
                             Box.OpenAndCloseBox(!GameManager.Instance.BoxWindow.activeSelf);
                         }
                     }
+                    else if (build)
+                    {
+                        if (build.Placed)
+                        {
+                            // TODO : 건물에 들어감
+                        }
+                    }
                 }
             }
         }
 
         if (Box && Vector2.Distance(Player.Instance.transform.position, Box.transform.position) > 3)
+        {
             Box.OpenAndCloseBox(false);
+            GameManager.Instance.ItemInfoWindow.SetActive(false);
+        }
 
         if (!GameManager.Instance.MouseOver)
         {

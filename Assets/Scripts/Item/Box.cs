@@ -35,6 +35,7 @@ public class Box : MonoBehaviour
 
             overlap[rand_item] = -9999;
             Items[rand].ItemAllocation(GameManager.Instance.Ui_Items[rand_item]);
+            Items[rand].Count = 1;
             idxs.Add(rand);
         }
     }
