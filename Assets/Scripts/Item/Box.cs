@@ -25,7 +25,6 @@ public class Box : MonoBehaviour
         for (int i = 0; i < GameManager.Instance.Ui_Items.Count - 2; i++)
             overlap.Add(i);
 
-
         for (int i = 0; i < ItemCount; i++)
         {
             int rand = Random.Range(1, 15);

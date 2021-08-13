@@ -70,7 +70,7 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     /// Count가 1일때는 UI에 표시하지 않고, 아이콘만 표시
     /// </summary>
     [SerializeField]
-    int count = 1;
+    int count = 0;
     public int Count
     {
         get { return count; }
@@ -287,5 +287,15 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     public bool ItemEqual(Item item)
     {
         return (Count == item.Count && Name == item.Name);
+    }
+
+    public void ItemZero()
+    {
+        Count = 0;
+        ItemType = ItemType.MATERIAL;
+        Icon = null;
+        BuildSprite = null;
+        Name = "";
+        Info = "";
     }
 }

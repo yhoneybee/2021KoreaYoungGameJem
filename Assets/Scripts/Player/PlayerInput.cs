@@ -166,6 +166,7 @@ public class PlayerInput
         if (Box && Vector2.Distance(Player.Instance.transform.position, Box.transform.position) > 3)
         {
             Box.OpenAndCloseBox(false);
+            GameManager.Instance.MouseOver = false;
             GameManager.Instance.ItemInfoWindow.SetActive(false);
         }
 

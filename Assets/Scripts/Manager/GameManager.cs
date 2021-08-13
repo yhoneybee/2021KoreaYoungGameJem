@@ -24,8 +24,16 @@ public class GameManager : MonoBehaviour
 
     public bool MouseOver
     {
-        get { return mouse_over; }
-        set { mouse_over = value; ItemInfoWindow.SetActive(mouse_over); }
+        get 
+        {
+            ItemInfoWindow.SetActive(mouse_over);
+            return mouse_over;
+        }
+        set 
+        {
+            mouse_over = value;
+            ItemInfoWindow.SetActive(mouse_over); 
+        }
     }
 
     /// <summary>
