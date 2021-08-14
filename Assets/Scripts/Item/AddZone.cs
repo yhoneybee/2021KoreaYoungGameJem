@@ -16,6 +16,16 @@ public class AddZone : MonoBehaviour, IDropHandler
                 ItemData data = UiItem.Dragging.Item.Data;
                 int count = UiItem.Dragging.Item.Count;
 
+                if (UiItem.Dragging.transform.parent.name == "Box")
+                {
+                    for (int i = Box.OpenBox.BoxItems.Count - 1; i >= 0; i--)
+                    {
+                        if (Box.OpenBox.BoxItems[i] != null)
+                            if (Box.OpenBox.BoxItems[i].Data == UiItem.Dragging.Item.Data && Box.OpenBox.BoxItems[i].Count == UiItem.Dragging.Item.Count)
+                                Box.OpenBox.BoxItems[i] = null;
+                    }
+                }
+
                 InventoryManager.Instance.Sub(UiItem.Dragging, UiItem.Dragging.Item.Count, false, false);
                 InventoryManager.Instance.Add(new Item(data, count));
 

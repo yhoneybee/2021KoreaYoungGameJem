@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Build : MonoBehaviour
 {
+    public SpriteRenderer sr;
+
     [SerializeField]
     bool placed = false;
     public bool Placed

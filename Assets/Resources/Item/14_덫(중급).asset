@@ -15,7 +15,12 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: af23fe5cc1f3d70458134d3487fadb42, type: 3}
   Build: {fileID: 21300000, guid: d2321c56438375c409c44f6eee45668f, type: 3}
   ItemType: 4
+  ItemClass: 2
   StackCount: 64
-  Name: "\uB36B(\uC911\uAE09)"
-  Info: "\uADF8\uC800 \uADF8\uB7F0 \uC18D\uBC15 \uD6A8\uACFC\uAC00 \uC788\uB2E4"
-  Resources: []
+  Durability: 0
+  Name: "\uB36B"
+  Info: "[\uC911\uAE09] \uADF8\uC800 \uADF8\uB7F0 \uC18D\uBC15 \uD6A8\uACFC\uAC00
+    \uC788\uB2E4"
+  Resources:
+  - ItemData: {fileID: 11400000, guid: 1b4c96f94b764794585d0ce8fb3b56c5, type: 2}
+    Count: 3

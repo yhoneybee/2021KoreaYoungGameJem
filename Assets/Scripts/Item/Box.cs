@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Box : MonoBehaviour
 {
-    public static Box OpenBox = null;
+    public static Box OpenBox { get; set; } = null;
 
     public List<Item> BoxItems = new List<Item>();
 

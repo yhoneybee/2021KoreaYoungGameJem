@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
 
     public UiItem[] Hotbar = new UiItem[9];
 
+    public PlayerState PlayerState;
+
     private int hotbar_index;
 
     public int HotbarIndex
@@ -31,8 +33,6 @@ public class Player : MonoBehaviour
     private void Start()
     {
         for (int i = 0; i < 20; i++)
-        {
             InventoryManager.Instance.Add(new Item(ItemFactory.Instance.GetRandomItemData(), Random.Range(1, 6)));
-        }
     }
 }

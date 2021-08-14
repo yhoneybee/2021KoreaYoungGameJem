@@ -46,7 +46,8 @@ public class InventoryManager : MonoBehaviour
                 for (int i = 0; i < 14; i++)
                 {
                     var item = BoxLayout.transform.GetChild(i).GetComponent<UiItem>();
-                    if (Box.OpenBox.BoxItems[i].Data != null)
+                    item.Item = null;
+                    if (Box.OpenBox.BoxItems[i] != null && Box.OpenBox.BoxItems[i].Data != null)
                     {
                         item.Item = new Item(Box.OpenBox.BoxItems[i]);
                         item.SetUp();
@@ -88,9 +89,9 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void Sub(UiItem ui_item, int count = 1, bool drop = false, bool destroy = true)
+    public bool Sub(UiItem ui_item, int count = 1, bool drop = false, bool destroy = true)
     {
-        if (ui_item.Item == null) return;
+        if (ui_item.Item == null) return false;
 
         ItemData data = ui_item.Item.Data;
 
@@ -127,5 +128,6 @@ public class InventoryManager : MonoBehaviour
         }
 
         ui_item.SetUp();
+        return true;
     }
 }

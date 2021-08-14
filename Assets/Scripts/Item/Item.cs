@@ -9,11 +9,15 @@ public class Item
     {
         Data = item.Data;
         Count = item.Count;
+        if (item.Data != null)
+            Durability = item.Data.Durability;
     }
     public Item(ItemData data, int count)
     {
         Data = data;
         Count = count;
+        if (data != null)
+            Durability = data.Durability;
     }
 
     public ItemData Data;
@@ -23,10 +27,15 @@ public class Item
     public int Count
     {
         get { return count; }
-        set 
-        {
-            count = value;
-        }
+        set { count = value; }
+    }
+
+    private int durability = 0;
+
+    public int Durability
+    {
+        get { return durability; }
+        set { durability = value; }
     }
 
     public void Use()
@@ -43,12 +52,17 @@ public class Item
             case ItemType.TRAP:
                 break;
             case ItemType.TOOL:
+                --Durability;
                 break;
             case ItemType.UNIVERSAL:
+                --Durability;
                 break;
             case ItemType.WATER_PURIFIER:
+                --Durability;
                 break;
             case ItemType.HOUSE:
+                var house = Object.Instantiate(InputManager.Instance.Building, InputManager.Instance.MousePos, Quaternion.identity);
+                house.Placed = true;
                 break;
             case ItemType.FRAME:
                 break;
@@ -56,5 +70,8 @@ public class Item
                 Debug.LogWarning("[ 금지된 접근입니다! ]");
                 break;
         }
+
+        if (Durability <= 0)
+            InventoryManager.Instance.Sub(GameManager.Instance.Player.Hotbar[GameManager.Instance.Player.HotbarIndex], 1, false, false);
     }
 }

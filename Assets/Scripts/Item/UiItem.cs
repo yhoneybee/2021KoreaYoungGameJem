@@ -115,7 +115,6 @@ public class UiItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
             {
                 print("Hotbar, Box -> Sub");
                 InventoryManager.Instance.Sub(Dragging, Dragging.Item.Count, false, false);
-
             }
         }
 

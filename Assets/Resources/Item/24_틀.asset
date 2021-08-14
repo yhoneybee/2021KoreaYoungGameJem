@@ -16,6 +16,12 @@ MonoBehaviour:
   Build: {fileID: 21300000, guid: d2321c56438375c409c44f6eee45668f, type: 3}
   ItemType: 8
   StackCount: 64
+  Durability: 0
   Name: "\uD2C0"
-  Info: "\uB531...?"
-  Resources: []
+  Info: "\uD558\uAE09, \uC0C1\uAE09\uC774 \uC5C6\uC774 \uC911\uAE09\uB9CC \uC788\uB294
+    \uD2C0\uC774\uB2E4"
+  Resources:
+  - ItemData: {fileID: 11400000, guid: f2c30f83a6c6d6241812bb4e19e1bf35, type: 2}
+    Count: 3
+  - ItemData: {fileID: 11400000, guid: 9572389a5a8635041b875ce6cc7dcdad, type: 2}
+    Count: 1

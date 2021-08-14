@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94360d0ddcf678c4a99700977b67fc21, type: 3}
-  m_Name: "11_\uBB3C"
+  m_Name: "28_\uB369\uCFE8(\uC0C1\uAE09)"
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: af23fe5cc1f3d70458134d3487fadb42, type: 3}
   Build: {fileID: 21300000, guid: d2321c56438375c409c44f6eee45668f, type: 3}
-  ItemType: 1
+  ItemType: 0
+  ItemClass: 3
   StackCount: 64
   Durability: 0
-  Name: "\uBB3C"
-  Info: "\uC2DC\uC6D0\uD558\uB2E4"
+  Name: "\uB369\uCFE8"
+  Info: "[\uC0C1\uAE09] \uAC1C\uCA4C\uB294 \uACE0\uC815 \uD6A8\uACFC\uAC00 \uC788\uB2E4"
   Resources: []

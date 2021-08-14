@@ -12,12 +12,38 @@ public class InputManager : MonoBehaviour
 
     private bool build_mode;
 
+    public Build Build;
+    public Build Building { get; set; }
+
     public GameObject HotbarFrame;
+    Vector2 Dir { get; set; }
+    float Angle { get; set; }
+    Quaternion Quaternion { get; set; }
 
     public bool BuildMode
     {
         get { return build_mode; }
-        set { build_mode = value; }
+        set
+        {
+            build_mode = value;
+
+            if (build_mode)
+            {
+                var item = GameManager.Instance.Player.Hotbar[GameManager.Instance.Player.HotbarIndex].Item;
+
+                if (item != null && item.Count > 0 && item.Data.ItemType == ItemType.HOUSE)
+                {
+                    Building = Instantiate(Build);
+                    Building.name = item.Data.Name;
+                    Building.sr.sprite = item.Data.Build;
+                }
+            }
+            else
+            {
+                if (Building)
+                    Destroy(Building.gameObject);
+            }
+        }
     }
 
     Player Player;
@@ -32,6 +58,14 @@ public class InputManager : MonoBehaviour
         Player = GameManager.Instance.Player;
     }
 
+    void SetAngle()
+    {
+        Dir = MousePos - new Vector2(Player.transform.position.x, Player.transform.position.y);
+
+        Angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
+        Quaternion = Quaternion.AngleAxis(Angle - 90, Vector3.forward);
+    }
+
     void MouseDownLeft()
     {
         if (Input.GetMouseButtonDown(0))
@@ -43,20 +77,24 @@ public class InputManager : MonoBehaviour
                 if (BuildMode)
                 {
                     // 분해
+                    Build build = hit.transform.GetComponent<Build>();
+                    if (build)
+                    {
+                        InventoryManager.Instance.Add(new Item(ItemFactory.Instance.GetRandomItemData(), Random.Range(1, 4)));
+                        Destroy(build.gameObject);
+                    }
                 }
             }
             else
             {
                 // 사용
-                //Item item = Player.Hotbar[ItemContainer.SelectedIndex].Item;
+                Item item = Player.Hotbar[Player.HotbarIndex].Item;
 
-                //if (!Player.Instance.Backpack.gameObject.activeSelf &&
-                //    !GameManager.Instance.ItemInfoWindow.activeSelf &&
-                //    !GameManager.Instance.BoxWindow.activeSelf)
-                //{
-                //    if (item && item.ItemType != ItemType.HOUSE)
-                //        item.Use();
-                //}
+                if (!InventoryManager.Instance.ShowBox && !InventoryManager.Instance.ShowInventory)
+                {
+                    if (item != null && item.Data.ItemType != ItemType.HOUSE)
+                        item.Use();
+                }
             }
         }
     }
@@ -72,13 +110,23 @@ public class InputManager : MonoBehaviour
                 if (BuildMode)
                 {
                     // 짓기
+                    var item = Player.Hotbar[Player.HotbarIndex].Item;
+                    if (!Building.Overlap)
+                    {
+                        if (item.Data.ItemType == ItemType.HOUSE)
+                        {
+                            item.Use();
+                            BuildMode = false;
+                        }
+                    }
                 }
                 else
                 {
                     // 상호작용
-
-                    DropItem item = hit.transform.gameObject.GetComponent<DropItem>();
-                    Box box = hit.transform.gameObject.GetComponent<Box>();
+                    DropItem item = hit.transform.GetComponent<DropItem>();
+                    Box box = hit.transform.GetComponent<Box>();
+                    Build build = hit.transform.GetComponent<Build>();
+                    Collection collection = hit.transform.GetComponent<Collection>();
 
                     if (item != null)
                     {
@@ -91,61 +139,21 @@ public class InputManager : MonoBehaviour
                         Box.OpenBox = box;
                         InventoryManager.Instance.ShowBox = !InventoryManager.Instance.ShowBox;
                     }
+                    else if (build)
+                    {
+                        if (build.Placed)
+                        {
+
+                        }
+                    }
+                    else if (collection)
+                        collection.Collect();
                 }
-                //if (BuildMode && Building)
-                //{
-                //    Item item = Player.Hotbar[ItemContainer.SelectedIndex].Item;
-                //    // 짓기
-                //    if (!Building.GetComponent<Build>().Overlap)
-                //    {
-                //        if (item.ItemType == ItemType.HOUSE)
-                //        {
-                //            GameManager.Instance.Ui_Items.Find(o => o.Name == item.Name).Use();
-                //            BuildMode = false;
-                //        }
-                //    }
-                //    else
-                //    {
-                //        // 경고창 띄우기?
-                //    }
-                //}
-                //else
-                //{
-                //    // 상호작용키
-                //    Item item = hit.transform.gameObject.GetComponent<Item>();
-
-                //    if (hit.transform.gameObject.GetComponent<Box>())
-                //        Box = hit.transform.gameObject.GetComponent<Box>();
-
-                //    Build build = hit.transform.gameObject.GetComponent<Build>();
-
-                //    if (item)
-                //    {
-                //        Item dragged = GameManager.Instance.Ui_Items.Find(o => o.Name == item.Name);
-
-                //        if (dragged)
-                //        {
-                //            Player.Backpack.AddItem(dragged, item.Count);
-
-                //            Object.Destroy(hit.transform.gameObject);
-                //            GameManager.Instance.MouseOver = false;
-                //        }
-                //    }
-                //    else if (Box)
-                //    {
-                //        if (Vector2.Distance(Player.Instance.transform.position, Box.transform.position) < 3)
-                //        {
-                //            Box.OpenAndCloseBox(!GameManager.Instance.BoxWindow.activeSelf);
-                //        }
-                //    }
-                //    else if (build)
-                //    {
-                //        if (build.Placed)
-                //        {
-                //            // TODO : 건물에 들어감
-                //        }
-                //    }
-                //}
+            }
+            else
+            {
+                if (InventoryManager.Instance.ShowBox)
+                    InventoryManager.Instance.ShowBox = false;
             }
         }
     }
@@ -217,9 +225,23 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    void TempBuild()
+    {
+        if (BuildMode)
+        {
+            Item select = Player.Hotbar[Player.HotbarIndex].Item;
+            if (select != null && select.Data.ItemType == ItemType.HOUSE)
+            {
+                Building.transform.position = new Vector3(MousePos.x, MousePos.y, 102);
+            }
+        }
+    }
+
     private void Update()
     {
         Player.transform.Translate(new Vector2(Horizontal, Vertical) * Player.Speed * Time.deltaTime);
+
+        SetAngle();
 
         MouseDownLeft();
         MouseDownRight();
@@ -228,5 +250,7 @@ public class InputManager : MonoBehaviour
         MouseOver();
 
         KeyBoard();
+
+        TempBuild();
     }
 }

@@ -20,8 +20,6 @@ public class GameManager : MonoBehaviour
 
     public GameObject ItemInfoWindow;
 
-    public GameObject BoxWindow;
-
     public Player Player;
 
     bool mouse_over;

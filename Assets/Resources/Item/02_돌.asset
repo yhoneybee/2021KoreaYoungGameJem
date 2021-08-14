@@ -16,6 +16,7 @@ MonoBehaviour:
   Build: {fileID: 21300000, guid: d2321c56438375c409c44f6eee45668f, type: 3}
   ItemType: 0
   StackCount: 64
+  Durability: 0
   Name: "\uB3CC"
   Info: "\uD558\uAE09, \uC911\uAE09 \uC544\uC774\uD15C\uC744 \uC81C\uC791\uD560 \uB54C
     \uC0AC\uC6A9\uB41C\uB2E4"
