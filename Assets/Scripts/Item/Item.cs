@@ -69,6 +69,12 @@ public class Item
             case ItemType.CLOTHES:
                 Debug.LogWarning("[ 금지된 접근입니다! ]");
                 break;
+            case ItemType.THROW:
+                Object.Instantiate(GameManager.Instance.Throw,
+                                   GameManager.Instance.Player.transform.position,
+                                   InputManager.Instance.Quaternion)
+                    .ItemData = GameManager.Instance.Player.Hotbar[GameManager.Instance.Player.HotbarIndex].Item.Data;
+                break;
         }
 
         if (Durability <= 0)

@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     public Player Player;
 
+    public Throw Throw;
+
     bool mouse_over;
 
     public bool MouseOver

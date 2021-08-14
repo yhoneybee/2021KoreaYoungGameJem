@@ -14,6 +14,7 @@ public enum ItemType
     HOUSE,
     FRAME,
     CLOTHES,
+    THROW,
 }
 
 public enum ItemClass
@@ -37,7 +38,7 @@ public class ItemData : ScriptableObject
     [Header(" - 사진")]
     [Space(10)]
     public Sprite Icon = null;
-    public Sprite Build = null;
+    public Sprite Ingame = null;
 
     [Header(" - 속성")]
     [Space(10)]

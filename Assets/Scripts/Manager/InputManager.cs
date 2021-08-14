@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public static InputManager Instance = null;
+    public static InputManager Instance { get; private set; } = null;
 
     public float Horizontal => Input.GetAxis("Horizontal");
     public float Vertical => Input.GetAxis("Vertical");
@@ -18,7 +18,7 @@ public class InputManager : MonoBehaviour
     public GameObject HotbarFrame;
     Vector2 Dir { get; set; }
     float Angle { get; set; }
-    Quaternion Quaternion { get; set; }
+    public Quaternion Quaternion { get; set; }
 
     public bool BuildMode
     {
@@ -35,7 +35,7 @@ public class InputManager : MonoBehaviour
                 {
                     Building = Instantiate(Build);
                     Building.name = item.Data.Name;
-                    Building.sr.sprite = item.Data.Build;
+                    Building.sr.sprite = item.Data.Ingame;
                 }
             }
             else

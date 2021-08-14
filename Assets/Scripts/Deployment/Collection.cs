@@ -16,7 +16,7 @@ public class Collection : MonoBehaviour
         set
         {
             item = value;
-            sr.sprite = item.Data.Build;
+            sr.sprite = item.Data.Ingame;
         }
     }
 
