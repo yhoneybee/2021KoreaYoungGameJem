@@ -32,6 +32,7 @@ public class Collection : MonoBehaviour
         {
             if ((int)tool.Item.Data.ItemClass >= (int)Item.Data.ItemClass)
             {
+                SoundManager.Instance.Play("e_hitting_hitting_1");
                 tool.Item.Use();
                 InventoryManager.Instance.Add(Item);
                 BonusItem();
