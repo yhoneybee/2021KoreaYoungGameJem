@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,40 +22,30 @@ public class GameManager : MonoBehaviour
 
     public GameObject BoxWindow;
 
+    public Player Player;
+
     bool mouse_over;
 
     public bool MouseOver
     {
         get 
         {
-            ItemInfoWindow.SetActive(mouse_over);
             return mouse_over;
         }
         set 
         {
             mouse_over = value;
-            ItemInfoWindow.SetActive(mouse_over); 
+            ItemInfoWindow.SetActive(mouse_over);
         }
     }
 
-    /// <summary>
-    /// Key : 조합해서 완성하는 아이템 이름
-    /// Value : { 필요 아이템 이름, 필요 아이템 개수 }, ...
-    /// </summary>
-    public Dictionary<string, List<Tuple<string, int>>> CraftItem = new Dictionary<string, List<Tuple<string, int>>>
+    public void SetItemInfo(Item item)
     {
-        {"덫(중급)",new List<Tuple<string, int>>{ new Tuple<string, int>("돌",3), } },
-        {"덫(상급)",new List<Tuple<string, int>>{ new Tuple<string, int>("철",2), } },
-        {"칼(중급)",new List<Tuple<string, int>>{ new Tuple<string, int>("돌",5), } },
-        {"칼(상급)",new List<Tuple<string, int>>{ new Tuple<string, int>("철",10), } },
-        {"도끼(하급)",new List<Tuple<string, int>>{ new Tuple<string, int>("돌",3), } },
-        {"도끼(중급)",new List<Tuple<string, int>>{ new Tuple<string, int>("돌",5), } },
-        {"도끼(상급)",new List<Tuple<string, int>>{ new Tuple<string, int>("철",10), } },
-        {"정수기",new List<Tuple<string, int>>{ new Tuple<string, int>("자갈",10), } },
-        {"텐트",new List<Tuple<string, int>>{ new Tuple<string, int>("덩쿨(중급)",10), } },
-        {"나무집",new List<Tuple<string, int>>{ new Tuple<string, int>("덩쿨(상급)",50), } },
-        {"틀",new List<Tuple<string, int>>{ new Tuple<string, int>("덩쿨(중급)",3), } },
-    };
+        ItemInfoWindow.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = item.Data.Icon;
+        ItemInfoWindow.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = item.Data.Name;
+        ItemInfoWindow.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = $"{item.Count}개";
+        ItemInfoWindow.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = item.Data.Info;
+    }
 
     private void Awake()
     {
@@ -62,13 +54,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Items.AddRange(Resources.LoadAll<Item>("Item/"));
-        Ui_Items.AddRange(Player.Instance.Backpack.Content.GetComponentsInChildren<Item>());
-        Player.Instance.Backpack.SetUi(true);
     }
 
     private void Update()
     {
-        ItemInfoWindow.transform.position = PlayerInput.MousePos;
+        ItemInfoWindow.transform.position = InputManager.Instance.MousePos;
     }
 }

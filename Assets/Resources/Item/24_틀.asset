@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94360d0ddcf678c4a99700977b67fc21, type: 3}
+  m_Name: "24_\uD2C0"
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: af23fe5cc1f3d70458134d3487fadb42, type: 3}
+  Build: {fileID: 21300000, guid: d2321c56438375c409c44f6eee45668f, type: 3}
+  ItemType: 8
+  StackCount: 64
+  Name: "\uD2C0"
+  Info: "\uB531...?"
+  Resources: []
