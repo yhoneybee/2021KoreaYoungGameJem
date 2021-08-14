@@ -46,8 +46,13 @@ public class Item
                 Debug.LogWarning("[ 금지된 접근입니다! ]");
                 break;
             case ItemType.FOOD:
+                if (Data.Name == "물")
+                    GameManager.Instance.Player.PlayerState.Moisture++;
+                else
+                    GameManager.Instance.Player.PlayerState.Hunger++;
                 break;
             case ItemType.TREATMENT:
+                GameManager.Instance.Player.PlayerState.Health++;
                 break;
             case ItemType.TRAP:
                 break;

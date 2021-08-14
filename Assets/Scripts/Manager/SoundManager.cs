@@ -15,6 +15,7 @@ public class SoundManager : MonoBehaviour
 {
     public AudioSource[] audioSources = new AudioSource[(int)SoundType.END];
     Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
+    Queue<AudioClip> effect_clips = new Queue<AudioClip>();
 
     public static SoundManager Instance { get; private set; } = null;
 
@@ -48,6 +49,15 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         Play("b_normal_normal_1", SoundType.BGM);
+        // test
+        //Add("e_backTracking_backTracking_1");
+        //Add("e_backTrackingEnd_backTrackingEnd_1");
+    }
+
+    private void Update()
+    {
+        if (effect_clips.Count > 0 && !audioSources[(int)SoundType.EFFECT].isPlaying)
+            Play(effect_clips.Dequeue(), SoundType.EFFECT);
     }
 
     public void StopAllSound()
@@ -85,6 +95,8 @@ public class SoundManager : MonoBehaviour
     }
 
     public void Play(string path, SoundType soundType = SoundType.EFFECT) => Play(GetOrAddAudioClip(path, soundType), soundType);
+
+    public void Add(string path, SoundType soundType = SoundType.EFFECT) => effect_clips.Enqueue(GetOrAddAudioClip(path, soundType));
 
     AudioClip GetOrAddAudioClip(string path, SoundType soundType)
     {

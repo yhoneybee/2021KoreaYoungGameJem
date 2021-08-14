@@ -104,12 +104,10 @@ public class PlayerState : MonoBehaviour
         {
             // 낮
             IsDay = true;
-            yield return new WaitForSeconds(10);
-            //yield return new WaitForSeconds(60 * 10);
+            yield return new WaitForSeconds(60 * 10);
             // 밤
             IsDay = false;
-            yield return new WaitForSeconds(10);
-            //yield return new WaitForSeconds(60 * 10);
+            yield return new WaitForSeconds(60 * 10);
             ++day;
         }
     }
@@ -117,8 +115,7 @@ public class PlayerState : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(30);
-            //yield return new WaitForSeconds(60 * 5);
+            yield return new WaitForSeconds(60 * 5);
             --Hunger;
             --Moisture;
         }
