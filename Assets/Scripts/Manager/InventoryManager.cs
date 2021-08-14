@@ -24,10 +24,11 @@ public class InventoryManager : MonoBehaviour
             show_inventory = value;
             Inventory.SetActive(value);
 
-            if (value)
-                GameManager.Instance.Player.DayText.GetComponent<RectTransform>().anchoredPosition = new Vector3(-625, -25, 0);
-            else
-                GameManager.Instance.Player.DayText.GetComponent<RectTransform>().anchoredPosition = new Vector3(40, -25, 0);
+            GameManager.Instance.Player.DayText.gameObject.SetActive(!value);
+            //if (value)
+            //    GameManager.Instance.Player.DayText.GetComponent<RectTransform>().anchoredPosition = new Vector3(-680, -25, 0);
+            //else
+            //    GameManager.Instance.Player.DayText.GetComponent<RectTransform>().anchoredPosition = new Vector3(-22, -25, 0);
         }
     }
 

@@ -71,7 +71,7 @@ public class PlayerState : MonoBehaviour
         }
     }
 
-    void SetDayText() => DayText.text = $"{day}일 {(isday ? "낮" : "밤")}";
+    void SetDayText() => DayText.text = $"{day}days - {(isday ? "day" : "night")}";
 
     public bool isDie = false;
 
