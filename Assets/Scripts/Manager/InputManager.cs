@@ -20,6 +20,8 @@ public class InputManager : MonoBehaviour
     float Angle { get; set; }
     public Quaternion Quaternion { get; set; }
 
+    public GameObject Tent;
+
     public bool BuildMode
     {
         get { return build_mode; }
