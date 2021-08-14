@@ -42,7 +42,7 @@ public class Build : MonoBehaviour
         Overlap = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject != gameObject && collision.gameObject.GetComponent<Build>())
             Overlap = true;
