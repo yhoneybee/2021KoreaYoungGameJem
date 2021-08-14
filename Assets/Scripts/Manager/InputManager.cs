@@ -6,8 +6,22 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager Instance { get; private set; } = null;
 
-    public float Horizontal => Input.GetAxis("Horizontal");
-    public float Vertical => Input.GetAxis("Vertical");
+    public float Horizontal
+    {
+        get 
+        {
+            Player.Animator.SetFloat("LeftAndRight", Input.GetAxis("Horizontal"));
+            return Input.GetAxis("Horizontal");
+        }
+    }
+    public float Vertical
+    {
+        get 
+        {
+            Player.Animator.SetFloat("UpAndDown", Input.GetAxis("Vertical"));
+            return Input.GetAxis("Vertical");
+        }
+    }
     public Vector2 MousePos => Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
     private bool build_mode;
@@ -19,6 +33,10 @@ public class InputManager : MonoBehaviour
     Vector2 Dir { get; set; }
     float Angle { get; set; }
     public Quaternion Quaternion { get; set; }
+
+    public GameObject Tent;
+
+    public GameObject GridCollider;
 
     public bool BuildMode
     {
@@ -143,11 +161,16 @@ public class InputManager : MonoBehaviour
                     {
                         if (build.Placed)
                         {
-
+                            Player.transform.position = new Vector2(build.transform.position.x, build.transform.position.y);
+                            Tent.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y, 100);
+                            Tent.SetActive(true);
+                            GridCollider.SetActive(false);
                         }
                     }
                     else if (collection)
+                    {
                         collection.Collect();
+                    }
                 }
             }
             else
@@ -176,7 +199,7 @@ public class InputManager : MonoBehaviour
         }
 
         if (wheel != 0)
-            HotbarFrame.transform.localPosition = new Vector3(Player.Hotbar[Player.HotbarIndex].transform.localPosition.x, -465, 0);
+            HotbarFrame.GetComponent<RectTransform>().anchoredPosition = new Vector3(Player.Hotbar[Player.HotbarIndex].transform.localPosition.x, 12.5f, 0);
     }
 
     void MouseOver()

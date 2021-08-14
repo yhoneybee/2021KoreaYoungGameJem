@@ -14,6 +14,10 @@ public class Player : MonoBehaviour
 
     public PlayerState PlayerState;
 
+    public Animator Animator;
+
+    public SpriteRenderer sr;
+
     private int hotbar_index;
 
     public int HotbarIndex
@@ -34,5 +38,14 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < 20; i++)
             InventoryManager.Instance.Add(new Item(ItemFactory.Instance.GetRandomItemData(), Random.Range(1, 6)));
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.name == "Tent")
+        {
+            InputManager.Instance.Tent.SetActive(false);
+            InputManager.Instance.GridCollider.SetActive(true);
+        }
     }
 }

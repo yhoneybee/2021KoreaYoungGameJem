@@ -46,13 +46,13 @@ public class Build : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject != gameObject && collision.gameObject.GetComponent<Build>())
+        if (collision.name != "CamAllow")
             Overlap = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject != gameObject && collision.gameObject.GetComponent<Build>())
+        if (collision.name != "CamAllow")
             Overlap = false;
     }
 }

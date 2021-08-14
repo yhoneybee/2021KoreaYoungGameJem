@@ -32,7 +32,9 @@ public class Collection : MonoBehaviour
         {
             if ((int)tool.Item.Data.ItemClass >= (int)Item.Data.ItemClass)
             {
+                GameManager.Instance.Player.sr.flipX = InputManager.Instance.MousePos.x > GameManager.Instance.Player.transform.position.x;
                 SoundManager.Instance.Play("e_hitting_hitting_1");
+                GameManager.Instance.Player.Animator.SetTrigger("Collect");
                 tool.Item.Use();
                 InventoryManager.Instance.Add(Item);
                 BonusItem();
