@@ -8,9 +8,19 @@ public class Box : MonoBehaviour
 
     public List<Item> BoxItems = new List<Item>();
 
+    public bool VoidBox = false;
+
     private void Start()
     {
-        for (int i = 0; i < 14; i++)
-            BoxItems.Add(new Item(ItemFactory.Instance.GetRandomItemData(), Random.Range(1, 11)));
+        if (VoidBox)
+        {
+            for (int i = 0; i < 14; i++)
+                BoxItems.Add(new Item(null, 0));
+        }
+        else
+        {
+            for (int i = 0; i < 14; i++)
+                BoxItems.Add(new Item(ItemFactory.Instance.GetRandomItemData(), Random.Range(1, 11)));
+        }
     }
 }

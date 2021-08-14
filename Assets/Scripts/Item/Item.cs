@@ -67,6 +67,7 @@ public class Item
                 break;
             case ItemType.HOUSE:
                 var house = Object.Instantiate(InputManager.Instance.Building, InputManager.Instance.MousePos, Quaternion.identity);
+                house.transform.position = new Vector3(house.transform.position.x, house.transform.position.y, 101);
                 house.Placed = true;
                 break;
             case ItemType.FRAME:
