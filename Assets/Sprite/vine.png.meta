@@ -1,22 +1,34 @@
 fileFormatVersion: 2
-guid: e9aec57aef7d2a949aa93eba98dd7560
+guid: ce936ab1946b62947a89a14f605a70e0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4830573141263516430
-    second: stone-32_0
+      213: -7137108738498115610
+    second: vine_0
   - first:
-      213: -6455470698774517193
-    second: stone-32_1
+      213: 1868161799776207683
+    second: vine_1
   - first:
-      213: -1354086708644284874
-    second: stone-32_2
+      213: 7570530004839054489
+    second: vine_2
   - first:
-      213: 1100247540528221202
-    second: stone-32_3
+      213: 4573167623579856044
+    second: vine_3
   - first:
-      213: 6796690364928853074
-    second: stone-32_4
+      213: 3874388263283021591
+    second: vine_4
+  - first:
+      213: 4022161613581541479
+    second: vine_5
+  - first:
+      213: -2026961908683962535
+    second: vine_6
+  - first:
+      213: 4747701542296214645
+    second: vine_7
+  - first:
+      213: -2853316307705657273
+    second: vine_8
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -46,7 +58,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: -1
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -114,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: stone-32_0
+      name: vine_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e030e82bda4a90340800000000000000
-      internalID: 4830573141263516430
+      spriteID: 6e7cb769a65e3fc90800000000000000
+      internalID: -7137108738498115610
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stone-32_1
+      name: vine_1
       rect:
         serializedVersion: 2
         x: 32
@@ -149,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 73a2a9d1a9f8966a0800000000000000
-      internalID: -6455470698774517193
+      spriteID: 3438d9a424b0de910800000000000000
+      internalID: 1868161799776207683
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stone-32_2
+      name: vine_2
       rect:
         serializedVersion: 2
         x: 64
@@ -170,14 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 636fd201051553de0800000000000000
-      internalID: -1354086708644284874
+      spriteID: 99c3ed3ddecef0960800000000000000
+      internalID: 7570530004839054489
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stone-32_3
+      name: vine_3
       rect:
         serializedVersion: 2
         x: 96
@@ -191,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21c8e2a0f4dd44f00800000000000000
-      internalID: 1100247540528221202
+      spriteID: cac6bc559b7277f30800000000000000
+      internalID: 4573167623579856044
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stone-32_4
+      name: vine_4
       rect:
         serializedVersion: 2
         x: 128
@@ -212,8 +224,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25487e160e1b25e50800000000000000
-      internalID: 6796690364928853074
+      spriteID: 7175dea199794c530800000000000000
+      internalID: 3874388263283021591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vine_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7606dbe5da691d730800000000000000
+      internalID: 4022161613581541479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vine_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95705a322e8ced3e0800000000000000
+      internalID: -2026961908683962535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vine_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57cd328f56933e140800000000000000
+      internalID: 4747701542296214645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vine_8
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74800678febf668d0800000000000000
+      internalID: -2853316307705657273
       vertices: []
       indices: 
       edges: []

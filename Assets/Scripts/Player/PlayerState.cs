@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerState : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class PlayerState : MonoBehaviour
         {
             health = value;
             bars[0].value = health;
-            isDie = health == 0;
+            IsDie = health == 0;
         }
     }
 
@@ -32,7 +33,7 @@ public class PlayerState : MonoBehaviour
         {
             hunger = value;
             bars[1].value = hunger;
-            isDie = hunger == 0;
+            IsDie = hunger == 0;
         }
     }
 
@@ -45,7 +46,7 @@ public class PlayerState : MonoBehaviour
         {
             moisture = value;
             bars[2].value = moisture;
-            isDie = moisture == 0;
+            IsDie = moisture == 0;
         }
     }
 
@@ -73,7 +74,21 @@ public class PlayerState : MonoBehaviour
 
     void SetDayText() => DayText.text = $"{day}days - {(isday ? "day" : "night")}";
 
-    public bool isDie = false;
+    private bool is_die;
+
+    public bool IsDie
+    {
+        get { return is_die; }
+        set 
+        {
+            is_die = value;
+            if (value)
+            {
+                SceneManager.LoadScene("EndingScene");
+            }
+        }
+    }
+
 
     private void Start()
     {

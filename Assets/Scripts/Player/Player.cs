@@ -44,8 +44,27 @@ public class Player : MonoBehaviour
     {
         if (collision.name == "Tent")
         {
-            InputManager.Instance.Tent.SetActive(false);
-            InputManager.Instance.GridCollider.SetActive(true);
+            CameraManager.Instance.SetBound(GameObject.Find("CamAllow").GetComponent<BoxCollider2D>());
+            transform.position = InputManager.Instance.Before + new Vector3(0, -2, 0);
+        }
+        else
+        {
+            Build build = collision.GetComponent<Build>();
+            if (build && build.Placed)
+            {
+                InputManager.Instance.Before = transform.position;
+
+                if (build.name.Contains("텐트"))
+                {
+                    CameraManager.Instance.SetBound(InputManager.Instance.Tent.transform.GetChild(0).GetComponent<BoxCollider2D>());
+                    transform.position = new Vector2(InputManager.Instance.Tent.transform.position.x, InputManager.Instance.Tent.transform.position.y);
+                }
+                else
+                {
+                    CameraManager.Instance.SetBound(InputManager.Instance.WasteBuilding.transform.GetChild(0).GetComponent<BoxCollider2D>());
+                    transform.position = new Vector2(InputManager.Instance.WasteBuilding.transform.position.x, InputManager.Instance.WasteBuilding.transform.position.y);
+                }
+            }
         }
     }
 }

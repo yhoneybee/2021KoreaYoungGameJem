@@ -15,6 +15,7 @@ public enum ItemType
     FRAME,
     CLOTHES,
     THROW,
+    END,
 }
 
 public enum ItemClass

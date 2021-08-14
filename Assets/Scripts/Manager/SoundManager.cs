@@ -49,7 +49,6 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         Play("b_normal_normal_1", SoundType.BGM);
-        // test
         //Add("e_backTracking_backTracking_1");
         //Add("e_backTrackingEnd_backTrackingEnd_1");
     }

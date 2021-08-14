@@ -6,6 +6,8 @@ public class DropItem : MonoBehaviour
 {
     public SpriteRenderer sr;
 
+    public ItemData ItemData = null;
+
     private Item item;
 
     public Item Item
@@ -21,6 +23,8 @@ public class DropItem : MonoBehaviour
     private void Start()
     {
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        if (ItemData != null)
+            Item = new Item(ItemData, 1);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

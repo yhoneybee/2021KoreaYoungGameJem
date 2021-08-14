@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94360d0ddcf678c4a99700977b67fc21, type: 3}
-  m_Name: "26_\uB369\uCFE8(\uD558\uAE09)"
+  m_Name: "29_\uC2DC\uACC4"
   m_EditorClassIdentifier: 
-  Icon: {fileID: -7137108738498115610, guid: ce936ab1946b62947a89a14f605a70e0, type: 3}
-  Ingame: {fileID: 1868161799776207683, guid: ce936ab1946b62947a89a14f605a70e0, type: 3}
-  ItemType: 10
-  ItemClass: 1
+  Icon: {fileID: 21300000, guid: ac257277a259003418b2c29e0ee9f3e6, type: 3}
+  Ingame: {fileID: 21300000, guid: ac257277a259003418b2c29e0ee9f3e6, type: 3}
+  ItemType: 11
+  ItemClass: 0
   StackCount: 64
   Durability: 0
-  Name: "\uB369\uCFE8"
-  Info: "[\uD558\uAE09] \uBBF8\uBBF8\uD55C \uACE0\uC815\uD6A8\uACFC\uAC00 \uC788\uB2E4"
+  Name: "\uC2DC\uACC4"
+  Info: ???#@#?@#!??#@?%!
   Resources: []

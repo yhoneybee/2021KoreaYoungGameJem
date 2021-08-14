@@ -81,6 +81,9 @@ public class Item
                                    InputManager.Instance.Quaternion)
                     .ItemData = GameManager.Instance.Player.Hotbar[GameManager.Instance.Player.HotbarIndex].Item.Data;
                 break;
+            case ItemType.END:
+                SceneController.Instance.Hidden = true;
+                break;
         }
 
         if (Durability <= 0)
