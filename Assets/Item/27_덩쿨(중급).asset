@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94360d0ddcf678c4a99700977b67fc21, type: 3}
   m_Name: "27_\uB369\uCFE8(\uC911\uAE09)"
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: af23fe5cc1f3d70458134d3487fadb42, type: 3}
-  Ingame: {fileID: 21300000, guid: af23fe5cc1f3d70458134d3487fadb42, type: 3}
+  Icon: {fileID: -7137108738498115610, guid: ce936ab1946b62947a89a14f605a70e0, type: 3}
+  Ingame: {fileID: 1868161799776207683, guid: ce936ab1946b62947a89a14f605a70e0, type: 3}
   ItemType: 10
   ItemClass: 2
   StackCount: 64

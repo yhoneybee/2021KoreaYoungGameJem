@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+    public static CameraManager Instance { get; private set; } = null;
+
     public GameObject target;
     public float cameraSpeed;
     private Vector3 targetPosition;
@@ -18,7 +20,10 @@ public class CameraManager : MonoBehaviour
     private float halfWidth;
     private float halfHeight;
 
-
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,13 +33,12 @@ public class CameraManager : MonoBehaviour
         maxBound = bound.bounds.max;
         halfHeight = theCamera.orthographicSize;
         halfWidth = halfHeight * Screen.width / Screen.height;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (target.gameObject != null)
+        if (target != null)
         {
             targetPosition.Set(target.transform.position.x, target.transform.position.y, this.transform.position.z);
             transform.position = Vector3.Lerp(transform.position, targetPosition, cameraSpeed * Time.deltaTime);
@@ -44,5 +48,12 @@ public class CameraManager : MonoBehaviour
 
             transform.position = new Vector3(clampedX, clapmedY, transform.position.z);
         }
+    }
+
+    public void SetBound(BoxCollider2D box2D)
+    {
+        bound = box2D;
+        minBound = bound.bounds.min;
+        maxBound = bound.bounds.max;
     }
 }

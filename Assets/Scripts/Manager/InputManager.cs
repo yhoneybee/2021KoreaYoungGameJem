@@ -8,7 +8,7 @@ public class InputManager : MonoBehaviour
 
     public float Horizontal
     {
-        get 
+        get
         {
             Player.Animator.SetFloat("LeftAndRight", Input.GetAxis("Horizontal"));
             return Input.GetAxis("Horizontal");
@@ -16,7 +16,7 @@ public class InputManager : MonoBehaviour
     }
     public float Vertical
     {
-        get 
+        get
         {
             Player.Animator.SetFloat("UpAndDown", Input.GetAxis("Vertical"));
             return Input.GetAxis("Vertical");
@@ -35,8 +35,9 @@ public class InputManager : MonoBehaviour
     public Quaternion Quaternion { get; set; }
 
     public GameObject Tent;
+    public GameObject WasteBuilding;
 
-    public GameObject GridCollider;
+    public Vector3 Before;
 
     public bool BuildMode
     {
@@ -143,7 +144,6 @@ public class InputManager : MonoBehaviour
                     // 상호작용
                     DropItem item = hit.transform.GetComponent<DropItem>();
                     Box box = hit.transform.GetComponent<Box>();
-                    Build build = hit.transform.GetComponent<Build>();
                     Collection collection = hit.transform.GetComponent<Collection>();
 
                     if (item != null)
@@ -156,16 +156,6 @@ public class InputManager : MonoBehaviour
                     {
                         Box.OpenBox = box;
                         InventoryManager.Instance.ShowBox = !InventoryManager.Instance.ShowBox;
-                    }
-                    else if (build)
-                    {
-                        if (build.Placed)
-                        {
-                            Player.transform.position = new Vector2(build.transform.position.x, build.transform.position.y);
-                            Tent.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y, 100);
-                            Tent.SetActive(true);
-                            GridCollider.SetActive(false);
-                        }
                     }
                     else if (collection)
                     {
